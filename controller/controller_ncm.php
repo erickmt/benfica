@@ -21,11 +21,14 @@ use
 // The following statement can be removed after the first run (i.e. the database
 // table has been created). It is a good idea to do this to help improve
 // performance.
+if (!isset($_SESSION)) {
+	session_start();
+}	  
 
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, 'ncm', 'id_ncm' )
 	->fields(
-		Field::inst( 'descricao' )
+		Field::inst( 'ncm.descricao' )
 		->validator( 'Validate::notEmpty', array(
                 "message" => "Campo de preenchimento obrigatório."
             ))
@@ -34,14 +37,41 @@ Editor::inst( $db, 'ncm', 'id_ncm' )
                                     'message' => 'Permitido informar no máximo 255 caracteres.'
         	))
         ->validator( 'Validate::unique', array("message" => "Tipo de produto anteriormente cadastrado." )),
-        Field::inst( 'ncm' )
+        Field::inst( 'ncm.ncm' )
 		->validator( 'Validate::notEmpty', array(
                 "message" => "Campo de preenchimento obrigatório."
-            ))
+            )),
+
+		Field::inst( 'ncm.id_loja' )
+		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))
+			->options( Options::inst()
+                ->table( 'loja' )
+                ->value( 'id' )
+				->label( 'descricao' )
+				->where( function ( $q ) {
+					if($_SESSION['usuario']['id_loja'] <> 0)
+					{	
+						$q->where( 'loja.id', $_SESSION['usuario']['id_loja'], '=');
+						$q->or_where( 'loja.id', '0', '=');
+					}
+				} )
+            )
+            ->validator( 'Validate::dbValues' ),
+
+        Field::inst( 'loja.descricao' )
+		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))
 			
 	)
+	->leftJoin( 'loja', 'loja.id', '=', 'ncm.id_loja' )
 	->where( function ( $q ) {
-	    $q->where( 'id_ncm', '0', '<>');
-    })
+		if($_SESSION['usuario']['id_loja'] <> 0)
+	  	{
+	  		$q->where( 'loja.id', $_SESSION['usuario']['id_loja'], '=');
+	  		$q->or_where( 'loja.id', '0', '=');
+	  		$q->and_where( 'ncm.id_ncm', '0', '<>');
+		}
+	  	else
+	  		$q->where( 'ncm.id_ncm', '0', '<>');
+	})
 	->process( $_POST )
 	->json();

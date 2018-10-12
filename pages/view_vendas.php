@@ -59,8 +59,9 @@
                       echo " - ".$_SESSION['usuario']['lojaDescricao'];
                   }
                   ?></a>
-               <button id='verifica-caixa' class="btn btn-primary" style="float:right; margin: 0 5px" onclick='BotaoCaixa()'><i class="fa fa-refresh"></i></button>
+               <!--<button id='verifica-caixa' class="btn btn-primary" style="float:right; margin: 0 5px" onclick='BotaoCaixa()'><i class="fa fa-refresh"></i></button>
                <button type="button" id='abre-caixa' class="btn btn-secondary" style="float:right;" disabled>Caixa</button>
+               -->
             </h1>
          </div>
       </div>

@@ -55,6 +55,14 @@ Editor::inst( $db, 'produto', 'id_produto' )
                 ->table( 'ncm' )
                 ->value( 'id_ncm' )
                 ->label( 'descricao' )
+                ->where( function ( $q ) {
+					if($_SESSION['usuario']['id_loja'] <> 0)
+					{	
+						$q->where( 'ncm.id_loja', $_SESSION['usuario']['id_loja'], '=');
+						$q->or_where( 'ncm.id_loja', '0', '=');
+					}
+					$q->where( 'ncm.id_ncm', '0', '<>');
+				} )
             )
             ->validator( 'Validate::dbValues' ),
 
@@ -116,7 +124,7 @@ Editor::inst( $db, 'produto', 'id_produto' )
 				->where( function ( $q ) {
 					if($_SESSION['usuario']['id_loja'] <> 0)
 						$q->where( 'loja.id', $_SESSION['usuario']['id_loja'], '=');
-					$q->where( 'id', '0', '<>');
+					$q->where( 'loja.id', '0', '<>');
 				} )
             )
             ->validator( 'Validate::dbValues' ),

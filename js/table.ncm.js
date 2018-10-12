@@ -13,12 +13,18 @@ $(document).ready(function() {
 		fields: [
 			{
 				"label": "Descrição:",
-				"name": "descricao"
+				"name": "ncm.descricao"
 			},
 			{
 				"label": "NCM:",
-				"name": "ncm"
-			}
+				"name": "ncm.ncm"
+			},
+			{
+                label: "Loja:",
+                name: "ncm.id_loja",
+                type: "select",
+                placeholder: ""
+            }
 		],
         i18n: {
             create: {
@@ -58,10 +64,13 @@ $(document).ready(function() {
 		ajax: 'controller/controller_ncm.php',
 		columns: [
 			{
-				"data": "descricao"
+				"data": "loja.descricao"
 			},
 			{
-				"data": "ncm"
+				"data": "ncm.descricao"
+			},
+			{
+				"data": "ncm.ncm"
 			}
 		],
 		select: true,

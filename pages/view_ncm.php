@@ -21,6 +21,7 @@
 						<table cellpadding="0" cellspacing="0" border="0" class="display" id="ncm" width="100%">
 							<thead>
 								<tr>
+									<th>Loja</th>
 									<th>Descrição</th>
 									<th>NCM</th>
 								</tr>

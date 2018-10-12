@@ -156,6 +156,111 @@
         }
     }
     
+
+    function abreCaixa(){
+      var nomeMetodo        = "movimentaCaixa";
+      var nomeController    = "Venda";
+      $.confirm({
+          title: 'Caixa!',
+          content: '' +
+          '<form action="" class="formName">' +
+          '<div class="form-group">' +
+          '<label>Notas</label><br/><br />' +
+          '<input id="notas" type="number" min="0" value=0 class="n100" /> $100'+
+          '<input id="notas" type="number" min="0" style={margin:0,0,0,30px} value=0 class="n50"/> $50' +
+          '<input id="notas" type="number" min="0" value=0 class="n20"/> $20<br /><br />'+
+          '<input id="notas" type="number" min="0" value=0 class="n10"/> $10 &nbsp' +
+          '<input id="notas" type="number" min="0" value=0 class="n5"/> $5 &nbsp'+
+          '<input id="notas" type="number" min="0" value=0 class="n2"/> $2 <br /> <br />' +
+          '<h5><strong> Moedas </strong></h5> <br />' +
+          '<input id="notas" type="number" min="0" value=0 class="m1" /> R$1&nbsp '+
+          '<input id="notas" type="number" min="0" style={margin:0,0,0,30px} value=0 class="m50"/> ¢50' +
+          '<input id="notas" type="number" min="0" value=0 class="m25"/> ¢25<br /><br />'+
+          '<input id="notas" type="number" min="0" value=0 class="m10"/> ¢10 &nbsp&nbsp' +
+          '<input id="notas" type="number" min="0" value=0 class="m5"/> ¢5 &nbsp'+
+          '</div>' +
+          '</form>',
+          buttons: {
+              formSubmit: {
+                  text: 'Enviar',
+                  btnClass: 'btn-blue',
+                  action: function () {
+                      var n100 = this.$content.find('.n100').val();
+                      var n50 = this.$content.find('.n50').val();
+                      var n20 = this.$content.find('.n20').val();
+                      var n10 = this.$content.find('.n10').val();
+                      var n5 = this.$content.find('.n5').val();
+                      var n2 = this.$content.find('.n2').val();
+                      var m1 = this.$content.find('.m1').val();
+                      var m50 = this.$content.find('.m50').val();
+                      var m25 = this.$content.find('.m25').val();
+                      var m10 = this.$content.find('.m10').val();
+                      var m5 = this.$content.find('.m5').val();
+                      var m2 = this.$content.find('.m2').val();
+
+                      var total1 = (parseFloat(n100)*100) + (parseFloat(n50)*50) + (parseFloat(n20)*20);
+                      var total2 = (parseFloat(n10)*10) + (parseFloat(n5)*5);
+                      var nMoedas = (parseFloat(m1)*100)   + (parseFloat(m50)*50) + (parseFloat(m25)*25) + (parseFloat(m10)*10) + (parseFloat(m5)*5); 
+                      var total3 = (parseFloat(n2)*2) + (parseFloat(nMoedas)/100);
+                      total = total1 + total2 + total3;
+                      if(total == 0){
+                          $.alert('Insira alguma valor');
+                          return false;
+                      }
+                      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&valor=' + total + '&desc=Abertura de caixa';
+                      $.confirm({
+                        title: 'Confirma?',
+                        content: 'Valor inserido R$'+total,
+                        buttons: {
+                            Confirmar: function () {
+                                $.ajax({
+                                  dataType: "json",
+                                  type: "POST",
+                                  //url: "controller/controller_caixa.php",
+                                  //data: "caixa=" + total + ',ok',
+                                  url: "transferencia/transferencia.php",
+                                  data: dados,
+                                  success: function( msg ){
+                                   BotaoCaixa(0);
+                                   $.confirm({
+                                      title: 'Caixa aberto',
+                                      content: 'Valor inserido R$'+total,
+                                      type: 'green',
+                                      typeAnimated: true,
+                                      autoClose: 'OK|1000',
+                                      buttons: {
+                                          OK: function () {
+                                          }
+                                      }
+                                  });                            
+                                }
+                              });
+                            },
+                            Cancelar: function () {
+                                $.alert('Cancelado!');
+                            }
+                        }
+                    });
+                  }
+              },
+              Cancelar: function () {
+                  //
+              },
+          },
+          onContentReady: function () {
+              // bind to events
+              var jc = this;
+              this.$content.find('form').on('submit', function (e) {
+                  // if the user submits the form by pressing enter in the field.
+                  e.preventDefault();
+                  jc.$$formSubmit.trigger('click'); // reference the button and click it
+              });
+          }
+      });
+    }
+
+
+
     $('#selecionarLoja').on('click', function(){
           $.confirm({
             title: 'Selecione a loja!',
@@ -213,6 +318,18 @@
             }
         });
 
+      $.ajax({
+              dataType: "json",
+              type: "POST",
+              //url: "controller/controller_caixa.php",
+              //data: "caixa=" + total + ',ok',
+              url: "transferencia/transferencia.php",
+              data: 'nomeMetodo=confereCaixa&nomeController=Venda',
+              success: function( retorno ){
+                if(retorno.resultado != 'aberto')
+                  abreCaixa();
+            }
+          });
     });
 
     // tell the embed parent frame the height of the content
