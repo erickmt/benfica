@@ -7,4 +7,5 @@ js/editor.foundation.min.js
 js/editor.jqueryui.min.min.js
 js/editor.semanticui.min.js
 js/editor.jqueryui.min.js
-
+controller/lib/config.php
+library/conexao.php
