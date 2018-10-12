@@ -1,3 +1,8 @@
 js/dataTables.editor.js
 js/dataTables.editor.min.js
 js/dataTables.min.js
+js/editor.bootstrap.min.js
+js/editor.bootstrap4.min.js
+js/editor.foundation.min.js
+js/editor.jqueryui.min.min.js
+js/editor.semanticui.min.js
