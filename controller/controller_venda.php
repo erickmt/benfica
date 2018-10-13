@@ -61,7 +61,7 @@ class Venda {
 	}
 
 	function visualizarNota($id, $loja){
-		if($loja == 1)
+		if($loja == 1 || $loja == 3)
 			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
 		else
 			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
@@ -1200,7 +1200,7 @@ class Venda {
 		$nota_fiscal = $this->converteArrayParaUtf8($nota_fiscal);
 		$nota_fiscal = json_encode($nota_fiscal);
 		$url = 'https://api.tiny.com.br/api2/nota.fiscal.incluir.php';
-		if($loja == 1)
+		if($loja == 1 || $loja == 3)
 			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
 		else
 			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
@@ -1229,7 +1229,7 @@ class Venda {
 	function obterPedido($idPedido, $loja){
 		$url = 'https://api.tiny.com.br/api2/notas.fiscais.pesquisa.php';
 		
-		if($loja == 1)
+		if($loja == 1 || $loja == 3)
 			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
 		else
 			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
@@ -1242,7 +1242,7 @@ class Venda {
 	}
 
 	function emitirNotaPedido($id, $loja){
-		if($loja == 1)
+		if($loja == 1 || $loja == 3)
 			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
 		else
 			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
@@ -1257,7 +1257,7 @@ class Venda {
 	}
 
 	function emitirNotaFiscal($id, $loja){
-		if($loja == 1)
+		if($loja == 1 || $loja == 3)
 			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
 		else
 			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';

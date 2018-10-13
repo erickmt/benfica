@@ -38,7 +38,8 @@ Editor::inst( $db, 'produto', 'id_produto' )
         ->validator( 'Validate::maxLen', array(
                                     'max' => 255,
                                     'message' => 'Permitido informar no máximo 255 caracteres.'
-       	)),		
+       	))
+       	->validator( 'Validate::unique', array("message" => "Produto anteriormente cadastrado." )),		
 		
 		Field::inst( 'produto.id_tipo_produto' ) 
 			->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))

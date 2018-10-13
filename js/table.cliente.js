@@ -185,6 +185,18 @@ $(document).ready(function() {
         }
 	} );
 	
+
+
+	editor.dependent('cliente.nome', function (val, data) {
+		var upper = val.toUpperCase();
+        editor.field('cliente.nome').val(upper);
+	});
+
+	editor.dependent('cliente.email', function (val, data) {
+		var lower = val.toLowerCase();
+        editor.field('cliente.email').val(lower);
+	});
+
     editor.dependent( 'cliente.tipo', function ( val ) {
     	
     	//editor.field('cliente.ie').val('');

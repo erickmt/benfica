@@ -36,11 +36,13 @@ Editor::inst( $db, 'ncm', 'id_ncm' )
                                     'max' => 255,
                                     'message' => 'Permitido informar no máximo 255 caracteres.'
         	))
-        ->validator( 'Validate::unique', array("message" => "Tipo de produto anteriormente cadastrado." )),
+        ->validator( 'Validate::unique', array("message" => "Descriçao anteriormente cadastrado." )),
+
         Field::inst( 'ncm.ncm' )
 		->validator( 'Validate::notEmpty', array(
                 "message" => "Campo de preenchimento obrigatório."
-            )),
+            ))
+		->validator( 'Validate::unique', array("message" => "NCM anteriormente cadastrado." )),
 
 		Field::inst( 'ncm.id_loja' )
 		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))

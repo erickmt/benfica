@@ -123,6 +123,11 @@ $(document).ready(function() {
         }
 	} );
 
+	editor.dependent('produto.descricao', function (val, data) {
+		var upper = val.toUpperCase();
+        editor.field('produto.descricao').val(upper);
+	});
+	
 	editor.on( 'edit', function ( e, type ) {
      // Type is 'main', 'bubble' or 'inline'
 		$.confirm({

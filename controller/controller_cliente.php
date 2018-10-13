@@ -140,7 +140,11 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
                 ->table( 'vendedor' )
                 ->value( 'id_vendedor' )
                 ->label( 'nome' )
+                ->where( function ( $q ) {
+				  $q->where( 'vendedor.situacao', '0', '=');
+				})
             ),
+
 			
 			//id_vendedor - NOME VENDEDOR
 			Field::inst( 'vendedor.nome' ),

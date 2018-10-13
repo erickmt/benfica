@@ -326,7 +326,7 @@
               url: "transferencia/transferencia.php",
               data: 'nomeMetodo=confereCaixa&nomeController=Venda',
               success: function( retorno ){
-                if(retorno.resultado != 'aberto')
+                if(retorno.resultado == 'fechado')
                   abreCaixa();
             }
           });
