@@ -201,6 +201,9 @@ $(document).ready(function() {
 				"data": "tipo_produto.descricao"
 			},
 			{
+				"data": "ncm.ncm"
+			},
+			{
 				"data": "produto.preco_custo", render: $.fn.dataTable.render.number( '.', ',', 2, 'R$ ' )
 			},
 			{
@@ -208,6 +211,9 @@ $(document).ready(function() {
 			},
 			{
 				"data": "produto.preco_atacado", render: $.fn.dataTable.render.number( '.', ',', 2, 'R$ ' )
+			},
+			{
+				"data": "produto.quantidade_estoque"
 			},
 			{
                 "data": "produto.situacao",

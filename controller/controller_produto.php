@@ -66,6 +66,8 @@ Editor::inst( $db, 'produto', 'id_produto' )
 				} )
             )
             ->validator( 'Validate::dbValues' ),
+        
+        Field::inst( 'ncm.ncm' ),
 
         Field::inst( 'tipo_produto.descricao' )
         	->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." )),

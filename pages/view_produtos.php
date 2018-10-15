@@ -27,8 +27,10 @@
 									<th>Loja</th>
 									<th>Descrição</th>
 									<th>Tipo</th>
-									<th>Preço Varejo</th>
-									<th>Preço Atacado</th>
+									<th>NCM</th>
+									<th>Varejo</th>
+									<th>Atacado</th>
+									<th>Estoque</th>
 									<th> 
 										<div class="dropdown">
 										  <button type="button" class="" data-toggle="dropdown">Situação
