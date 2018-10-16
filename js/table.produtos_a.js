@@ -170,8 +170,38 @@ $(document).ready(function() {
 	    .set( values );
     });
 
-   	$('ul').on('click', 'a', function() {
+    $('#descProduto').on('input',function(e){
+    	pesquisarProduto(1,$('#descProduto').val());
+	});
+    
+    $('#tipoProduto').on('input',function(e){
+    	pesquisarProduto(2,$('#tipoProduto').val());
+	});
 
+    $('#ncmProduto').on('input',function(e){
+    	pesquisarProduto(3,$('#ncmProduto').val());
+	});
+	
+	$('#varejoProduto').on('input',function(e){
+    	pesquisarProduto(5,$('#varejoProduto').val());
+	});
+	
+	$('#atacadoProduto').on('input',function(e){
+    	pesquisarProduto(6,$('#atacadoProduto').val());
+	});
+
+	$('#estoqueProduto').on('input',function(e){
+    	pesquisarProduto(7,$('#estoqueProduto').val());
+	});
+
+    function pesquisarProduto(col, texto){
+      table
+        .columns(col)
+        .search(texto)
+        .draw();
+    }
+
+   	$('ul').on('click', 'a', function() {
       table
         .columns(6)
         .search($(this).text())

@@ -23,6 +23,44 @@
 					<div class="panel-body">					
 						<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="produtos" width="100%">
 							<thead>
+								<div class="row">
+								    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Produto:</label>
+                                            <br><input type="text" id="descProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Tipo:</label>
+                                            <br><input type="text" id="tipoProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>NCM:</label>
+                                            <br><input type="text" id="ncmProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Varejo:</label>
+                                            <br><input type="text" id="varejoProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Atacado:</label>
+                                            <br><input type="text" id="atacadoProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Estoque:</label>
+                                            <br><input type="text" id="estoqueProduto" class="form-control" required >
+                                        </div>                                            
+                                    </div>
+								</div>
 								<tr>
 									<th>Loja</th>
 									<th>Descrição</th>

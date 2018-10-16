@@ -675,7 +675,12 @@ $(document).ready(function(){
               $('#tabelaMovimentacaoCaixa tbody').empty();
               for (var i = 0; i < retorno.dados.formapagamento.length; i++) {
                   
-                  var newRow = $("<tr>");
+                  if(retorno.dados.formapagamento[i].valor < 0)
+                    var newRow = $("<tr class='danger'>");
+                  else if(retorno.dados.formapagamento[i].descricao == "Abertura De Caixa")
+                    var newRow = $("<tr class='success'>");
+                  else 
+                    var newRow = $("<tr>");
                   var cols = "";
                   //alterar as colunas se tiver mais uma variável
                   if(retorno.dados.formapagamento[i].descricao == 'TOTAL' || retorno.dados.formapagamento[i].data == 'TOTAL'){
