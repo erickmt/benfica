@@ -639,8 +639,8 @@
                                        </td>
                                     </tr>
                                     <tr>
-                                       <td class="tg-yw4l" colspan="1" style="line-height: 1.5;" id="identificacaoClienteRecibo" >&nbsp;&nbsp;<b>Cliente:</b> André Luiz da Silva (Atacadista)<br>&nbsp;&nbsp;<b>RG:</b> 3234544323<br>&nbsp;&nbsp;<b>Telefone:</b> 98784532<br></td>
-                                       <td class="tg-yw4l" colspan="3" style="line-height: 1.5;" id="identificacaoVendaRecibo">&nbsp;&nbsp;<b>Código da venda:</b> 33234<br>&nbsp;&nbsp;<b>Data:</b> 11/11/2017<br>&nbsp;&nbsp;<b>Vendedor:</b> Luiz Silva<br></td>
+                                       <td class="tg-yw4l" colspan="1" style="line-height: 1.5;" id="identificacaoClienteRecibo" >&nbsp;&nbsp;<b>Cliente:</b> <br>&nbsp;&nbsp;<b>RG:</b><br>&nbsp;&nbsp;<b>Telefone:</b> <br></td>
+                                       <td class="tg-yw4l" colspan="3" style="line-height: 1.5;" id="identificacaoVendaRecibo">&nbsp;&nbsp;<b>Código da venda:</b> <br>&nbsp;&nbsp;<b>Data:</b> <br>&nbsp;&nbsp;<b>Vendedor:</b> <br></td>
                                     </tr>
                                     <tr bgcolor="#F5F5F5">
                                        <td class="tg-yw4l" width="50%">
@@ -676,7 +676,7 @@
                                        <p style="font-size: 11px; margin: 4px;">TOTAL EM PRODUTOS</p>
                                     </td>
                                     <td id="totalProdutosRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -684,7 +684,7 @@
                                        <p style="font-size: 11px; margin: 4px;">TOTAL DA VENDA</p>
                                     </td>
                                     <td id="totalVenda">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -692,7 +692,7 @@
                                        <p style="font-size: 11px; margin: 4px;">DESCONTO NA VENDA</p>
                                     </td>
                                     <td id="totalCreditoRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -700,7 +700,7 @@
                                        <p style="font-size: 11px; margin: 4px;">FRETE/CORREIOS/MOTOBOY/OUTROS</p>
                                     </td>
                                     <td id="totalDeslocamentoRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 40,00</p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -708,7 +708,7 @@
                                         <p style="font-size: 11px; margin: 4px;">DESCONTO NO PAGAMENTO</p>
                                     </td>
                                     <td id="totalTaxasRecibo">
-                                        <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
+                                        <p style="font-size: 11px; margin: 4px; text-align:left;">/p>
                                     </td>
                                  </tr>                    
                                  <tr bgcolor="#DCDCDC">

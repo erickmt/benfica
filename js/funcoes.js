@@ -2720,9 +2720,13 @@ return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g,
             //Se o resultado for ok, verifica os demais itens
             if(retorno.resultado == "sucesso")
             {
-                //concluirVenda();
-                montaRecibo(retorno.dados);
-                $('#simboloConfirmacao').show();
+                var result = concluirVenda();
+                if(!result)
+                {
+                  return tentarConcluirVendaNovamente();
+                }
+                //montaRecibo(retorno.dados);
+                //$('#simboloConfirmacao').show();
 
                 $('#avisoVendaNaoConcluida').removeClass('label-success');
                 $('#avisoVendaNaoConcluida').addClass('label-danger');
@@ -2752,7 +2756,24 @@ return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g,
           }});
     }   
 
-  function atualizaDadosCliente(){
+
+    function tentarConcluirVendaNovamente(){
+      $.confirm({
+            title: 'Erro ao salvar venda!',
+            content: 'Tentar novamente?',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {
+                OK: function () {
+                    trasferenciaPasso03paraPasso04();
+                },
+                Cancelar: function(){
+                  self.close();
+                }
+            }
+         }); 
+    }
+    function atualizaDadosCliente(){
     
       // Busca as formas de pagamento cadastradas
       var nomeMetodo    = "atualizaDadosCliente";
@@ -2786,13 +2807,13 @@ return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g,
     if(validacep.test(cep)) {
 
         //Cria um elemento javascript.
-        var script = document.createElement('script');
+        var scriptCep = document.createElement('script');
 
         //Sincroniza com o callback.
-        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+        scriptCep.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
 
         //Insere script no documento e carrega o conteúdo.
-        document.body.appendChild(script);
+        document.body.appendChild(scriptCep);
 
     } //end if.
     else {
@@ -3111,7 +3132,7 @@ function montaRecibo(dados)
       // Busca as formas de pagamento cadastradas
         var nomeMetodo    = "concluirVenda";
         var nomeController  = "Venda";
-
+        var concluiu = true;
         //Pega os dados do formulário
         var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController;
 
@@ -3136,7 +3157,7 @@ function montaRecibo(dados)
                   //Se o resultado for ok, verifica os demais itens
                   if(retorno.resultado == "sucesso")
                   {
-      
+                      
                       montaRecibo(retorno.dados);
                       //habilitar o acesso ao passo 02 e 03
                       $('#MenuOpcaoPasso02').addClass('disabled');
@@ -3151,17 +3172,20 @@ function montaRecibo(dados)
                       $('#simboloConfirmacao').hide();
                       // Volta ao topo do painel de venda
                       $('html, body').animate({scrollTop:$('#painelVendaPrincipal').position().top}, 'slow');    
-                      criarPedido(retorno.dados.id_venda);            
+                      //criarPedido(retorno.dados.id_venda);            
+                  }else{
+                    concluiu = false;
                   }
                 }
               }).done(function (response) {
                   self.close();
               }).fail(function(){
+                  concluiu = false;
                   self.close();
               });
           }
         });
-
+      return concluiu;
     }   
 
 
