@@ -201,7 +201,7 @@ $(document).ready(function() {
 
    	$('ul').on('click', 'a', function() {
       table
-        .columns(5)
+        .columns(7)
         .search($(this).text())
         .draw();
     });
@@ -209,7 +209,7 @@ $(document).ready(function() {
  	$('ul').on('click', 'a.todos', function() {
       table
         .search('')
-        .columns(5)
+        .columns(7)
         .search('')
         .draw();
     });

@@ -203,16 +203,15 @@ $(document).ready(function() {
 
    	$('ul').on('click', 'a', function() {
       table
-        .columns(6)
+        .columns(8)
         .search($(this).text())
         .draw();
     });
  	
  	$('ul').on('click', 'a.todos', function() {
-
       table
         .search('')
-        .columns(6)
+        .columns(8)
         .search('')
         .draw();
     });
