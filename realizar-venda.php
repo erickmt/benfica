@@ -331,6 +331,10 @@
             }
           });
     });
+    
+    $("#optionsRadiosInline2").change(function() {
+        autenticacaoVendaConsignado();
+    });
 
     // tell the embed parent frame the height of the content
     if (window.parent && window.parent.parent){

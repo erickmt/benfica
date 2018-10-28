@@ -78,6 +78,29 @@ class Sessao {
 	    return $retorno;		    					
 	}
 
+	function verificaPermissaoVenderConsignado()
+	{
+
+		$model_usuario = new Model_Usuario($this->conexao);
+
+		session_start();
+		$perfil = $model_usuario->buscaPerfilUsuario($_SESSION['usuario']['id_usuario'], false, false);
+
+		if($perfil == false)
+		{
+		    $retorno             = array('resultado' => 'erro');
+		    return $retorno;		    					
+		}
+
+		//Identifica a permissão da funcionalidade
+		if($perfil == 'A')
+			$permissao = 'S';
+		else
+			$permissao = 'N';
+
+	    $retorno             = array('resultado' => 'sucesso', 'permissao' => $permissao);
+	    return $retorno;		    					
+	}
 
 	function autenticarAdministradorSubGerente($login, $senha)
 	{

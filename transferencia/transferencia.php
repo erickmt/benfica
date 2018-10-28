@@ -134,6 +134,10 @@
 						$retorno = $Sessao->verificaPermissaoExclusaoVenda();
 						break;						
 
+					case 'verificaPermissaoVenderConsignado':
+						$retorno = $Sessao->verificaPermissaoVenderConsignado();
+						break;	
+
 					case 'autenticarAdministradorSubGerente':
 						$retorno = $Sessao->autenticarAdministradorSubGerente($_POST['login'],$_POST['senha']);
 						break;										

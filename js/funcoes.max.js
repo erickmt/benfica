@@ -950,8 +950,7 @@ $(document).ready(function(){
 
       $('#autenticacaoAlteracaoVenda').on('hide.bs.modal', function () {
         
-		  alteraConsignado = false;
-		  
+
           //Volta com os dados somente se o usuário superior não for autenticado
           if( $("#controle").val() == 0)
           {
@@ -3684,12 +3683,9 @@ function montaRecibo(dados)
         });
         return false;
     }
-	
-
 
   function fecharModalAutenticacaoExclusaoVenda()
   {
-	alteraConsignado = false;
 
     $("#login").val("");
     $("#senha").val("");
@@ -3735,19 +3731,12 @@ function montaRecibo(dados)
             }
             else if (retorno.resultado == "sucesso")
             {
-	          if(alteraConsignado){
-	          	  alteraConsignado = false;
-	          	  $("#optionsRadiosInline2").prop('checked', true);
-              	  $("#optionsRadiosInline1").prop('checked', false);
-				  fecharModalAutenticacaoExclusaoVenda();
-
-	          }
-              else if(tipoChamada == 1)
+              if(tipoChamada == 1)
               {
                   if(retorno.permissao == 'S')
                   {
 
-                    fecharModalAutenticacaoExclusaoVenda();
+                    fecharModalAutenticacaoExclusaoVenda()
                     modalConfirmacaoExclusaoVenda($('#idVenda').val());          
 
                   }
@@ -3838,11 +3827,9 @@ function montaRecibo(dados)
           }});
     }   
 
-    var alteraConsignado = false;
+
     function autenticacaoVendaConsignado()
     {
-    	$("#optionsRadiosInline1").prop("checked", true);
-        $("#optionsRadiosInline2").prop('checked', false);
     // Primeiro , verifica se o usuário tem acesso a operação 
       var nomeMetodo      = "verificaPermissaoVenderConsignado";
       var nomeController  = "Sessao";
@@ -3866,16 +3853,16 @@ function montaRecibo(dados)
               //Abre o modal somente se não tiver permissão
               if(retorno.permissao == 'N')
               {
-              	 alteraConsignado = true;
+
+                  // bloqueia o botão de incluir item na venda
+                  $("#optionsRadiosInline1").attr('checked', true);
+                  $("#optionsRadiosInline2").attr('checked', false);
+
                   //Abre o modal de autenticação
                   $('#autenticacaoAlteracaoVenda').modal('show');
                   setTimeout(function () {
                       $('#myModal1').modal('hide')
                   }, 2000);
-              }
-              else{
-                  $("#optionsRadiosInline2").prop('checked', true);
-              	  $("#optionsRadiosInline1").prop('checked', false);
               }
           }
           else

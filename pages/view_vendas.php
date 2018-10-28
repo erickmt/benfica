@@ -6,7 +6,7 @@
             <div class="modal-body">
                <h4><b>Usuário não autorizado a realizar a operação</b></h4>
                <hr>
-               <p>Um usuário do tipo "Administrador" ou "Sub-gerente" deve autorizar o procedimento:</p>
+               <p>Um usuário autorizado deve autorizar o procedimento:</p>
                <div class="row">
                   <div class="col-lg-6">
                      <p><b>Login:</b></p>
