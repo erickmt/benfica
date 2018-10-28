@@ -3173,7 +3173,7 @@ function montaRecibo(dados)
                       $('#simboloConfirmacao').hide();
                       // Volta ao topo do painel de venda
                       $('html, body').animate({scrollTop:$('#painelVendaPrincipal').position().top}, 'slow');    
-                      //criarPedido(retorno.dados.id_venda);            
+                      criarPedido(retorno.dados.id_venda);            
                   }else{
                     concluiu = false;
                   }
