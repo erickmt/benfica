@@ -18,6 +18,10 @@ use
 	DataTables\Editor\Upload,
 	DataTables\Editor\Validate;
 
+if (!isset($_SESSION)) {
+	session_start();
+}	  
+
 function validateCashFlowDates(&$values, &$action) {
     //Caso seja CNPJ
     $cpfcnpj = $values["cliente"]["cpf"];
@@ -136,6 +140,7 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
 		
 		//id_vendedor
 		Field::inst( 'cliente.id_vendedor' )
+			->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))
 			->options( Options::inst()
                 ->table( 'vendedor' )
                 ->value( 'id_vendedor' )
@@ -267,6 +272,10 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
          } )
 	)
 	->validator( function ( $editor, $editorAction, $data ) {
+	    if ( $editorAction === Editor::ACTION_EDIT && $_SESSION['usuario']['perfil'] != 'A' ) {
+           return 'Não é possível editar o cliente';
+        }
+
 	    if ( $editorAction === Editor::ACTION_CREATE || $editorAction === Editor::ACTION_EDIT ) {
 	        if ( $editorAction === Editor::ACTION_CREATE ) {
 	            $action = 'create';

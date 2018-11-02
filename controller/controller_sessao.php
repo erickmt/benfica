@@ -116,7 +116,7 @@ class Sessao {
 		}
 
 		//Identifica a permissão da funcionalidade
-		if($perfil == 'A' || $perfil == 'S')
+		if($perfil == 'A')
 			$permissao = "S";
 		else
 			$permissao = "N";

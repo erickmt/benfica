@@ -950,8 +950,13 @@ $(document).ready(function(){
 
       $('#autenticacaoAlteracaoVenda').on('hide.bs.modal', function () {
         
-		  alteraConsignado = false;
-		  
+        alteraConsignado = false;
+		    alteraVendedor = false;
+		    $("#login").val("");
+        $("#senha").val("");
+        $('#erroAutorizacaoAlteracaoVenda').html("");
+        $('#erroAutorizacaoAlteracaoVenda').hide();
+
           //Volta com os dados somente se o usuário superior não for autenticado
           if( $("#controle").val() == 0)
           {
@@ -2095,6 +2100,7 @@ $(document).ready(function(){
     $('#selecaoVendedor').empty();
 		for (i = 0; i < dados[0].responsaveis.length; i++) {
 		    $('#selecaoVendedor').append('<option value = '+ dados[0].responsaveis[i].id +'>' + dados[0].responsaveis[i].nome + '</option>');
+        vendedorAtual = $('#selecaoVendedor').val();
 		}
 
 
@@ -3689,7 +3695,8 @@ function montaRecibo(dados)
 
   function fecharModalAutenticacaoExclusaoVenda()
   {
-	alteraConsignado = false;
+    alteraConsignado = false;
+  	alteraVendedor = false;
 
     $("#login").val("");
     $("#senha").val("");
@@ -3736,32 +3743,69 @@ function montaRecibo(dados)
             else if (retorno.resultado == "sucesso")
             {
 	          if(alteraConsignado){
-	          	  alteraConsignado = false;
-	          	  $("#optionsRadiosInline2").prop('checked', true);
-              	  $("#optionsRadiosInline1").prop('checked', false);
-				  fecharModalAutenticacaoExclusaoVenda();
+              if(retorno.permissao == 'S')
+                {
+  	          	  alteraConsignado = false;
+  	          	  $("#optionsRadiosInline2").prop('checked', true);
+                	$("#optionsRadiosInline1").prop('checked', false);
+  				        
+                  $("#login").val("");
+                  $("#senha").val("");
+                  $('#erroAutorizacaoAlteracaoVenda').html("");
+                  $('#erroAutorizacaoAlteracaoVenda').hide();
 
-	          }
-              else if(tipoChamada == 1)
-              {
-                  if(retorno.permissao == 'S')
-                  {
 
-                    fecharModalAutenticacaoExclusaoVenda();
-                    modalConfirmacaoExclusaoVenda($('#idVenda').val());          
+                  $('#autenticacaoAlteracaoVenda').modal('hide');
+                  setTimeout(function () {
+                      $('#myModal1').modal('show')
+                  }, 2000);
+                }
+              else{
+                  $('#erroAutorizacaoAlteracaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoAlteracaoVenda').show();  
+               }
+	          } 
+            else if(alteraVendedor)
+            {
+              if(retorno.permissao == 'S')
+                {
+                  alteraVendedor = false;
+                  $("#selecaoVendedor").val(vendedorFuturo);
+                  $("#login").val("");
+                  $("#senha").val("");
+                  $('#erroAutorizacaoAlteracaoVenda').html("");
+                  $('#erroAutorizacaoAlteracaoVenda').hide();
 
-                  }
-                  else
-                  {
 
-                    $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
-                    $('#erroAutorizacaoExclusaoVenda').show();                          
+                  $('#autenticacaoAlteracaoVenda').modal('hide');
+                  setTimeout(function () {
+                      $('#myModal1').modal('show')
+                  }, 2000);
+                }
+               else{
+                  $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoExclusaoVenda').show();  
+               }
+            } 
+            else if(tipoChamada == 1)
+            {
+                if(retorno.permissao == 'S')
+                {
 
-                  }
-              }
+                  fecharModalAutenticacaoExclusaoVenda();
+                  modalConfirmacaoExclusaoVenda($('#idVenda').val());          
 
-              else if(tipoChamada == 2)
-              {
+                }
+                else
+                {
+
+                  $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoExclusaoVenda').show();                          
+
+                }
+            }
+            else if(tipoChamada == 2)
+            {
                   if(retorno.permissao == 'N')
                   {
                     $('#erroAutorizacaoAlteracaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
@@ -3780,7 +3824,6 @@ function montaRecibo(dados)
                       setTimeout(function () {
                           $('#myModal1').modal('show')
                       }, 2000);
-
                   }
               }              
 
@@ -3885,6 +3928,54 @@ function montaRecibo(dados)
         }
       });
     }
+
+    
+    var alteraVendedor = false;
+    var vendedorFuturo;
+    function autenticacaoAlterarVendedor()
+    {
+      vendedorFuturo = $('#selecaoVendedor').val();
+
+      $('#selecaoVendedor').val(vendedorAtual);
+      // Primeiro , verifica se o usuário tem acesso a operação 
+      var nomeMetodo      = "verificaPermissaoVenderConsignado";
+      var nomeController  = "Sessao";
+
+      //Pega os dados do formulário
+      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController;
+
+      $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: "transferencia/transferencia.php",
+        data: dados,
+
+
+        success: function( retorno ){
+
+          //Se o resultado for ok, verifica os demais itens
+          if(retorno.resultado == "sucesso")
+          {
+              //Abre o modal somente se não tiver permissão
+              if(retorno.permissao == 'N')
+              {
+                 alteraVendedor = true;
+                  //Abre o modal de autenticação
+                  $('#autenticacaoAlteracaoVenda').modal('show');
+                  setTimeout(function () {
+                      $('#myModal1').modal('hide')
+                  }, 2000);
+              }else{
+                $('#selecaoVendedor').val(vendedorFuturo);
+              }
+          }
+          else
+          {
+              alert("Ocorreu um erro ao buscar as permissões do usuário");
+          }
+        }
+    });
+  }
 
   function prosseguirRegistroFuncionarioDuplicado()
   {
