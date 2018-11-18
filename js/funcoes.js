@@ -3179,7 +3179,7 @@ function montaRecibo(dados)
                       $('#simboloConfirmacao').hide();
                       // Volta ao topo do painel de venda
                       $('html, body').animate({scrollTop:$('#painelVendaPrincipal').position().top}, 'slow');    
-                      criarPedido(retorno.dados.id_venda);            
+                      //criarPedido(retorno.dados.id_venda);            
                   }else{
                     concluiu = false;
                   }
@@ -3743,7 +3743,7 @@ function montaRecibo(dados)
             else if (retorno.resultado == "sucesso")
             {
 	          if(alteraConsignado){
-              if(retorno.permissao == 'S')
+              if(retorno.permissao == 'A')
                 {
   	          	  alteraConsignado = false;
   	          	  $("#optionsRadiosInline2").prop('checked', true);
@@ -3767,7 +3767,7 @@ function montaRecibo(dados)
 	          } 
             else if(alteraVendedor)
             {
-              if(retorno.permissao == 'S')
+              if(retorno.permissao == 'A' || retorno.permissao == 'S')
                 {
                   alteraVendedor = false;
                   $("#selecaoVendedor").val(vendedorFuturo);
@@ -3789,7 +3789,7 @@ function montaRecibo(dados)
             } 
             else if(tipoChamada == 1)
             {
-                if(retorno.permissao == 'S')
+                if(retorno.permissao == 'A' || retorno.permissao == 'S')
                 {
 
                   fecharModalAutenticacaoExclusaoVenda();

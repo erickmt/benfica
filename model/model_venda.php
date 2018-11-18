@@ -1144,7 +1144,7 @@ class Model_Venda {
                    Ifnull((SELECT Sum(a.valor_pago) 
                            FROM   forma_pagamento_venda a, 
                                   venda c 
-                           WHERE  a.id_forma_pagamento in (2, 15)
+                           WHERE  a.id_forma_pagamento in (2, 10, 12, 15)
                           and a.id_venda = c.id_venda
                           and (c.dta_cancelamento_venda = '0000-00-00' or c.dta_cancelamento_venda is null)
                           and c.dta_venda = LEFT(data, 10)
