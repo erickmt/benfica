@@ -121,8 +121,8 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
 	                                    'min' => 11,
 	                                    'max' => 14,
 	                                    'message' => 'Permitido informar apenas números com 11 caracteres.'
-	        	)),		
-			//->validator( 'Validate::unique', array("message" => "CPF anteriormente cadastrado." )),
+	        	))		
+			->validator( 'Validate::unique', array("message" => "CPF anteriormente cadastrado." )),
 
 		Field::inst( 'cliente.ie' )
 			->validator( 'Validate::numeric', array("message" => "Permitido informar somente números." )),
