@@ -122,7 +122,7 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
 	                                    'max' => 14,
 	                                    'message' => 'Permitido informar apenas números com 11 caracteres.'
 	        	))		
-			->validator( 'Validate::unique', array("message" => "CPF anteriormente cadastrado." )),
+			->validator( 'Validate::unique', array("message" => "CPF / CNJP anteriormente cadastrado." )),
 
 		Field::inst( 'cliente.ie' )
 			->validator( 'Validate::numeric', array("message" => "Permitido informar somente números." )),
@@ -272,9 +272,9 @@ Editor::inst( $db, 'cliente', 'id_cliente' ) //id_cliente
          } )
 	)
 	->validator( function ( $editor, $editorAction, $data ) {
-	    if ( $editorAction === Editor::ACTION_EDIT && $_SESSION['usuario']['perfil'] != 'A' ) {
-           return 'Não é possível editar o cliente';
-        }
+	  //  if ( $editorAction === Editor::ACTION_EDIT && $_SESSION['usuario']['perfil'] != 'A' ) {
+    //       return 'Não é possível editar o cliente';
+     //   }
 
 	    if ( $editorAction === Editor::ACTION_CREATE || $editorAction === Editor::ACTION_EDIT ) {
 	        if ( $editorAction === Editor::ACTION_CREATE ) {

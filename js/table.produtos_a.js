@@ -209,6 +209,7 @@ $(document).ready(function() {
     });
  	
  	$('ul').on('click', 'a.todos', function() {
+
       table
         .search('')
         .columns(8)

@@ -3710,10 +3710,130 @@ function montaRecibo(dados)
 
   }    
 
-
+/*
   function autenticarUsuarioAouS(tipoChamada)
   {
 
+        var nomeMetodo      = "autenticarAdministradorSubGerente";
+        var nomeController  = "Sessao";
+    
+        //Pega os dados do formulário
+        var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&login=' + $("#login").val() + '&senha=' + $("#senha").val();
+
+        $.ajax({
+          dataType: "json",
+          type: "POST",
+          url: "transferencia/transferencia.php",
+          data: dados, 
+          success: function( retorno ){
+
+            if(retorno.resultado == "erro")
+            {
+                if(tipoChamada == 1)
+                {
+                  $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoExclusaoVenda').show();          
+                }
+                else if(tipoChamada == 2)
+                {
+                  $('#erroAutorizacaoAlteracaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoAlteracaoVenda').show();          
+                }                
+            }
+            else if (retorno.resultado == "sucesso")
+            {
+	          if(alteraConsignado){
+              if(retorno.permissao == 'S')
+                {
+  	          	  alteraConsignado = false;
+  	          	  $("#optionsRadiosInline2").prop('checked', true);
+                	$("#optionsRadiosInline1").prop('checked', false);
+  				        
+                  $("#login").val("");
+                  $("#senha").val("");
+                  $('#erroAutorizacaoAlteracaoVenda').html("");
+                  $('#erroAutorizacaoAlteracaoVenda').hide();
+
+
+                  $('#autenticacaoAlteracaoVenda').modal('hide');
+                  setTimeout(function () {
+                      $('#myModal1').modal('show')
+                  }, 2000);
+                }
+              else{
+                  $('#erroAutorizacaoAlteracaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoAlteracaoVenda').show();  
+               }
+	          } 
+            else if(alteraVendedor)
+            {
+              if(retorno.permissao == 'S')
+                {
+                  alteraVendedor = false;
+                  $("#selecaoVendedor").val(vendedorFuturo);
+                  $("#login").val("");
+                  $("#senha").val("");
+                  $('#erroAutorizacaoAlteracaoVenda').html("");
+                  $('#erroAutorizacaoAlteracaoVenda').hide();
+
+
+                  $('#autenticacaoAlteracaoVenda').modal('hide');
+                  setTimeout(function () {
+                      $('#myModal1').modal('show')
+                  }, 2000);
+                }
+               else{
+                  $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoExclusaoVenda').show();  
+               }
+            } 
+            else if(tipoChamada == 1)
+            {
+                if(retorno.permissao == 'S')
+                {
+
+                  fecharModalAutenticacaoExclusaoVenda();
+                  modalConfirmacaoExclusaoVenda($('#idVenda').val());          
+
+                }
+                else
+                {
+
+                  $('#erroAutorizacaoExclusaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                  $('#erroAutorizacaoExclusaoVenda').show();                          
+
+                }
+            }
+            else if(tipoChamada == 2)
+            {
+                  if(retorno.permissao == 'N')
+                  {
+                    $('#erroAutorizacaoAlteracaoVenda').html("Usuário não encontrado na base de dados ou usuário também sem permissão para exclusão da venda.");
+                    $('#erroAutorizacaoAlteracaoVenda').show();                          
+                  }
+                  else 
+                  {
+
+                      $("#login").val("");
+                      $("#senha").val("");
+                      $('#erroAutorizacaoAlteracaoVenda').html("");
+                      $('#erroAutorizacaoAlteracaoVenda').hide();
+                      $("#controle").val(1);
+
+                      $('#autenticacaoAlteracaoVenda').modal('hide');
+                      setTimeout(function () {
+                          $('#myModal1').modal('show')
+                      }, 2000);
+                  }
+              }              
+
+            }
+          }
+        });
+    }*/
+
+    function autenticarUsuarioAouS(tipoChamada)
+    {
         var nomeMetodo      = "autenticarAdministradorSubGerente";
         var nomeController  = "Sessao";
     
@@ -3830,9 +3950,7 @@ function montaRecibo(dados)
             }
           }
         });
-
-  }
-
+    }
 
     function autenticacaoAlteracaoVenda()
     {
