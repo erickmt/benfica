@@ -33,15 +33,24 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
 
+    <!-- Inclusão CSS-->
     <!-- Inclusão CSS -->
     <link href="css/select2.min.css" rel="stylesheet" />
     <link rel="shortcut icon" href="library/benfica.png" />
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="dist/css/estilo.css" rel="stylesheet">
     <link href="vendor/morrisjs/morris.css" rel="stylesheet">
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<link rel="stylesheet" type="text/css" href="css/generator-base.css">
+	<link rel="stylesheet" type="text/css" href="css/editor.bootstrap.min.css">
+    
+    <link href="css/estilo.css" rel="stylesheet" />
+    
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
 
 	<?php include "pages/auxiliar/cabecalho.php"; ?>
 
