@@ -350,7 +350,7 @@ class Relatorio {
 		return array("resultado" => "sucesso", "dados" => $retorno);
     }
 
-    function gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca)
+    function gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca, $formaPagamento)
     {
 
 		session_start();
@@ -372,7 +372,7 @@ class Relatorio {
 		
 
 		//Busca as vendas realizadas, separadas por forma de pagamento
-		$vendasFormaPagamento = $model_venda->gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca);
+		$vendasFormaPagamento = $model_venda->gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca, $formaPagamento);
 
 		if($vendasFormaPagamento['indicador_erro'] == 1)
 			return array("resultado" => "erro", "descricao" => "Erro ao realizar busca.");

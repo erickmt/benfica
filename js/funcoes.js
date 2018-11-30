@@ -660,7 +660,7 @@ $(document).ready(function(){
         var nomeController = "Relatorio";
         
         //Pega os dados do formulário
-        var dados = $('#gerarRelatorioCaixa').serialize() + '&nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController;
+        var dados = $('#gerarRelatorioCaixa').serialize() + '&nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&formasPagamento=' + $('#idPagamentoRelatorio').val();
 
         $.ajax({
           dataType: "json",
@@ -2505,7 +2505,29 @@ $(document).ready(function(){
         return false;
    }    
 
+  function listarFormaPagamentoRelatorioCaixa(idFormaPagamento){
+  
+    var nomeMetodo        = "listarTodasFormasPagamento";
+    var nomeController    = "FormaPagamento";
 
+    var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController;
+
+    $.ajax({
+    dataType: "json",
+    type: "POST",
+    url: "transferencia/transferencia.php",
+    data: dados,
+
+    success: function(retorno){
+        //Se o resultado for ok, verifica os demais itens  
+        $('#idPagamentoRelatorio').empty();
+        $('#idPagamentoRelatorio').append("<option value=''></option>");
+          for (i = 0; i < retorno.dados.length; i++) {
+              $('#idPagamentoRelatorio').append('<option value = '+ retorno.dados[i].idFormaPagamento +'>' + retorno.dados[i].nomeFormaPagamento + '</option>');
+          }
+    }});
+  
+  }
 
 
   function excluirFormaPagamento(idFormaPagamento){

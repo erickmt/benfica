@@ -1101,6 +1101,7 @@ class Model_Venda {
           $sql = $sql." GROUP BY a.id_produto order by 2, 6 desc;";
         }
       }
+
       //Executa a query
       $resultado = $this->conexao->query($sql);
 
@@ -1134,7 +1135,7 @@ class Model_Venda {
         return array('indicador_erro' => 0, 'dados' => $retorno);
       }
 
-        function gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca)
+        function gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca, $formaPagamanto)
         {
             $sql = "
             SELECT LEFT(data, 10)              AS data, 
@@ -1144,7 +1145,7 @@ class Model_Venda {
                    Ifnull((SELECT Sum(a.valor_pago) 
                            FROM   forma_pagamento_venda a, 
                                   venda c 
-                           WHERE  a.id_forma_pagamento in (2, 10, 12, 15)
+                           WHERE  a.id_forma_pagamento in (".$formaPagamanto.")
                           and a.id_venda = c.id_venda
                           and (c.dta_cancelamento_venda = '0000-00-00' or c.dta_cancelamento_venda is null)
                           and c.dta_venda = LEFT(data, 10)

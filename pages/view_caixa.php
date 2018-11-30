@@ -2,7 +2,7 @@
 <div id="wrapper">
    <div id="page-wrapper">
       <div class="row">
-         <div class="col-lg-12">
+         <div class="col-md-12">
             <h1 class="page-header">Movimentação do caixa</h1>
          </div>
       </div>
@@ -31,7 +31,7 @@
                         <div class="col-sm-5"></div>
                      </div>
                      <br />
-                     <div class="col-lg-6">
+                     <div class="col-md-6">
                         <form name="cxEtr" id="cxEtr">
                            <div class="input-group">                                
                               <span class="input-group-btn">
@@ -41,7 +41,7 @@
                            </div>
                         </form>
                      </div>
-                     <div class="col-lg-6">
+                     <div class="col-md-6">
                         <form name="cxSd" id="cxSd">
                            <div class="input-group">
                               <input type="text" class="form-control" name="descSaida" placeholder="Descrição / Motivo" required>
@@ -68,26 +68,34 @@
             <form role="form" id="gerarRelatorioCaixa" method="POST">
                <!-- /.row -->
                <div class="row">
-                  <div class="col-lg-4">
+                  <div class="col-md-3">
                   </div>
-                  <div class="col-lg-2">
+                  <div class="col-md-2">
                      <div class="form-group">
                         <label>Data Inicial:</label>
                         <br><input type="date" name="dataInicial" class="form-control" required >
                      </div>
                   </div>
-                  <div class="col-lg-2">
+                  <div class="col-md-2">
                      <div class="form-group">
                         <label>Data Final:</label>
                         <br><input type="date" name="dataFinal" class="form-control" required >
                      </div>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
+                     <div class="form-group " >
+                        <label>Forma de Pagamento:</label>
+                        <select id="idPagamentoRelatorio" style="width: 100%"  name="idPagamentoRelatorio" class="form-control js-example-basic-multiple" multiple="multiple">
+                           <option value='' ></option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="col-md-1">
                   </div>
                   <?php if ($_SESSION['usuario']['perfil'] == 'A'): ?>
-                  <div class="col-lg-12">
-                     <div class="col-lg-5"></div>
-                     <div class="col-lg-2">
+                  <div class="col-md-12">
+                     <div class="col-md-5"></div>
+                     <div class="col-md-2">
                         <div class="form-group">
                            <select name="lojaBusca" id="lojaBusca" class="form-control">
                               <?php foreach ($listarLojas as $key => $value): ?>
@@ -98,16 +106,16 @@
                      </div>
                   </div>
                   <?php endif; ?>
-                  <div class="col-lg-12">
-                     <div class="col-lg-5"></div>
-                     <div class="col-lg-2">
+                  <div class="col-md-12">
+                     <div class="col-md-5"></div>
+                     <div class="col-md-2">
                         <button type="submit" id="botaoGerarRelatorioCaixa" class="btn btn-default form-control">
                         <i class="fa fa-search"></i>
                         Gerar Relatório
                         </button>
                      </div>
                   </div>
-                  <div class="col-lg-12">
+                  <div class="col-md-12">
                      <br>
                      <div class="alert alert-danger" role="alert" id="ErroGerarRelatorioFinanceiro" style="display: none;">
                         <strong>Erro: </strong> Não foi localizada nenhum valor para a pesquisa realizada.
@@ -135,8 +143,8 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                <div class="row">
-                  <div class="col-lg-2"></div>
-                  <div class="col-lg-8">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-8">
                      <!--  Essa div é o relatório de cima --> 
                      <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="tabelaMovimentacaoCaixa">
@@ -162,7 +170,7 @@
                      </div>
                      <hr>
                   </div>
-                  <div class="col-lg-2"></div>
+                  <div class="col-md-2"></div>
                </div>
             </div>
          </div>

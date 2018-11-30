@@ -337,7 +337,7 @@
     });
 
     $("#selecaoVendedor").change(function() {
-        autenticacaoAlterarVendedor();
+        //autenticacaoAlterarVendedor();
     });
 
     // tell the embed parent frame the height of the content

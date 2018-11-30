@@ -102,7 +102,7 @@
 						if(isset($_POST["lojaBusca"])){
 							$lojaBusca = $_POST["lojaBusca"];
 						}
-						$retorno = $Relatorio->gerarRelatorioCaixa($_POST['dataInicial'], $_POST['dataFinal'], $lojaBusca);
+						$retorno = $Relatorio->gerarRelatorioCaixa($_POST['dataInicial'], $_POST['dataFinal'], $lojaBusca, $_POST['formasPagamento']);
 						break;									
 
 					case 'gerarRelatorioFaturamento':
@@ -170,6 +170,18 @@
 						break;
 				}
 				break;	
+
+			case 'FormaPagamento':
+				$FormaPagamento = new Model_FormaPagamento($conexao);			
+
+				switch ($_POST['nomeMetodo']) {
+
+					case 'listarTodasFormasPagamento':
+						$retorno = $FormaPagamento->listarTodasFormasPagamento();
+						break;
+				}
+				break;	
+				
 
 			case 'Venda':
 				$Venda = new Venda($conexao);
