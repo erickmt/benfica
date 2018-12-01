@@ -187,19 +187,19 @@ class Model_Cliente {
                          FROM
                            cliente cli
                          WHERE 
-                           ";
+                         cli.situacao = 0 ";
          
 
           //Se o nome tiver sido enviado
           if($nomeCompleto != false)
           {
               //$nomeCompleto =  utf8_decode($nomeCompleto);
-              $sql = $sql." cli.nome like '%".$nomeCompleto."%' ";
+              $sql = $sql." and cli.nome like '%".$nomeCompleto."%' ";
           }else{
             //Se o nome tiver sido enviado
             if($cpf != false)
             {
-                $sql = $sql." cli.cpf = '".$cpf."'";
+                $sql = $sql." and cli.cpf = '".$cpf."'";
             }
           }
           //Executa a query
