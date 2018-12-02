@@ -28,13 +28,13 @@
 							<thead>
 								<tr>
 									<th width="8%">ID</th>
-									<th width="32%">Nome</th>
+									<th width="34%">Nome</th>
 									<th width="10%">Perfil</th>
 									<th width="10%">Telefone</th>
-									<th width="12%">CPF</th>
-									<th width="10%">Última Compra</th>
-									<th width="8%"> Inativar
-										<!--<div class="dropdown">
+									<th width="14%">CPF</th>
+									<th width="14%">Última Compra</th>
+									<!--<th width="8%"> Inativar
+										<div class="dropdown">
 										  <button type="button" class="" data-toggle="dropdown">Situação
 										  <span class="caret"></span></button>
 										  <ul class="dropdown-menu">
@@ -42,8 +42,8 @@
 										    <li><a href="#">Desativado</a></li>
 										    <li><a href="#" class="todos">Todos</a></li>
 										  </ul>
-										</div>-->
-									</th>
+										</div>
+									</th>-->
 									<th width="5%"> <i class="fa fa-eye" aria-hidden="true"></i></th>
 								</tr>
 							</thead>

@@ -299,18 +299,18 @@ $(document).ready(function() {
 			{
 				"data": "cliente.dta_ultima_compra"
 			},
-			{
-                "data": "cliente.situacao",
-                render: function (data, type, row) {
-                         // Filtering and display get the rendered string
-                        //return data == 0 ? "<button class='btn btn-xs btn-primary'><i class='fa fa-thumbs-o-up' aria-hidden='true'></i></button>" : "<button class='btn btn-xs'><i class='fa fa-thumbs-down' aria-hidden='true'></i></button>";
-                        return "<center><button class='btn btn-xs btn-primary'><i class='fa fa-thumbs-o-up' aria-hidden='true'></i></button></center>";
-                    // Otherwise just give the original data
+			// {
+            //     "data": "cliente.situacao",
+            //     render: function (data, type, row) {
+            //              // Filtering and display get the rendered string
+            //             //return data == 0 ? "<button class='btn btn-xs btn-primary'><i class='fa fa-thumbs-o-up' aria-hidden='true'></i></button>" : "<button class='btn btn-xs'><i class='fa fa-thumbs-down' aria-hidden='true'></i></button>";
+            //             return "<center><button class='btn btn-xs btn-primary'><i class='fa fa-thumbs-o-up' aria-hidden='true'></i></button></center>";
+            //         // Otherwise just give the original data
                     
-                },
-                orderable:      false,
-                className:      'situacaoCliente'
-            },
+            //     },
+            //     orderable:      false,
+            //     className:      'situacaoCliente'
+            // },
             {
 				className:      'details-control',
                 orderable:      false,
