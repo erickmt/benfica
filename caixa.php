@@ -47,8 +47,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/generator-base.css">
 	<link rel="stylesheet" type="text/css" href="css/editor.bootstrap.min.css">
-    
-    <link href="css/estilo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/dialogo.css">
     
 	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
 
@@ -72,7 +71,7 @@
     ?>
 
 <!-- Inclusão JS -->
-<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="vendor/metisMenu/metisMenu.min.js"></script>
     <script src="vendor/raphael/raphael.min.js"></script>
@@ -81,6 +80,8 @@
     <script src="dist/js/sb-admin-2.js"></script>
     <script src="js/funcoes.js"></script>
     <script src="js/jquery.maskMoney.js"></script>
+    
+    <script type="text/javascript" charset="utf-8" src="js/dialogo.js"></script> 
     <script src="js/select2.min.js"></script>
     <script>
         $('.js-example-basic-multiple').select2();
