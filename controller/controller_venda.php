@@ -17,7 +17,7 @@ class Venda {
 
 	function movimentaCaixa($valor, $desc, $loja = false){
 		session_start();
-		if($loja == 'false')
+		if($loja == 'false' || !isset($loja))
 		{
 			$lojaLogada = $_SESSION['usuario']['id_loja'];
 		}else{
