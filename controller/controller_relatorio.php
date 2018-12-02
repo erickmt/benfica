@@ -356,7 +356,7 @@ class Relatorio {
 		session_start();
 
 		$lojaLogada = $_SESSION['usuario']['id_loja'];
-		if($lojaBusca == 0){
+		if($lojaLogada != 0){
 			$lojaBusca = $lojaLogada;
 		}
 

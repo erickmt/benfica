@@ -17,12 +17,13 @@ class Venda {
 
 	function movimentaCaixa($valor, $desc, $loja = false){
 		session_start();
-		if(!isset($loja))
+		if($loja == 'false')
 		{
 			$lojaLogada = $_SESSION['usuario']['id_loja'];
 		}else{
 			$lojaLogada = $loja;
 		}
+
 		if($lojaLogada == 0){
 			$retorno 	= array('resultado' => 'erro', 'descricao' => 'Loja inválida');
 			return $retorno;

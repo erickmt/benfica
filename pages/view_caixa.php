@@ -15,21 +15,23 @@
             <div class="row">
                <div class="form-group">
                   <div class="container">
-                     <div class="row">
-                        <div class="col-sm-5 col-xs-3"></div>
-                        <div class="col-sm-2 col-xs-6" >
-                           <div class="form-group">
-                              <label>Loja:</label>
-                              <select class="form-control" name="lojaBusca" id="lojaBusca">
-                                 <option value="0"> </option>
-                                 <?php foreach ($listarLojas as $key => $value): ?>
-                                 <option value="<?php echo $value['id_loja']; ?>"> <?php echo $value['descricao']; ?> </option>
-                                 <?php endforeach; ?>
-                              </select>
+                     <?php if ($_SESSION['usuario']['id_loja'] == 0): ?>
+                        <div class="row">
+                           <div class="col-sm-5 col-xs-3"></div>
+                           <div class="col-sm-2 col-xs-6" >
+                              <div class="form-group">
+                                 <label>Loja:</label>
+                                 <select class="form-control" name="lojaBusca" id="lojaBusca">
+                                    <option value="0"> </option>
+                                    <?php foreach ($listarLojas as $key => $value): ?>
+                                    <option value="<?php echo $value['id_loja']; ?>"> <?php echo $value['descricao']; ?> </option>
+                                    <?php endforeach; ?>
+                                 </select>
+                              </div>
                            </div>
+                           <div class="col-sm-5"></div>
                         </div>
-                        <div class="col-sm-5"></div>
-                     </div>
+                     <?php endif; ?>
                      <br />
                      <div class="col-md-6">
                         <form name="cxEtr" id="cxEtr">
@@ -92,7 +94,7 @@
                   </div>
                   <div class="col-md-1">
                   </div>
-                  <?php if ($_SESSION['usuario']['perfil'] == 'A'): ?>
+                  <?php if ($_SESSION['usuario']['id_loja'] == '0'): ?>
                   <div class="col-md-12">
                      <div class="col-md-5"></div>
                      <div class="col-md-2">

@@ -1817,6 +1817,9 @@ $(document).ready(function(){
       var nomeMetodo        = "movimentaCaixa";
       var nomeController    = "Venda";
 
+      if(lojaBusca === undefined || lojaBusca === null)
+        lojaBusca = false;
+
       $.confirm({
           title: 'Caixa!',
           content: '' +
