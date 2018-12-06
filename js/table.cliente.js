@@ -429,15 +429,52 @@ $(document).ready(function() {
 
 	$('#cliente').on( 'click', 'td.details-control', function () {
 
-    	var cell = table.cell( this, 0 ).data();
-	   	var cliente_selecionado = table.cell( this, 1 ).data();
+    	var idCliente = table.cell( this, 0 ).data();
 
-		table1
-	        .search(cell + ' - ' + cliente_selecionado)
-	        .columns(0)
-	        .draw();
+		var nomeMetodo     = "gerarRelatorioHistoricoCliente";
+		var nomeController = "Relatorio";
 
-	    document.getElementById('historico').style.display='block';
+		//Pega os dados do formulário
+		var dados = '&nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&idCliente=' + idCliente;
+
+		$.ajax({
+			dataType: "json",
+			type: "POST",
+			url: "transferencia/transferencia.php",
+			data: dados,
+			success: function( retorno ){
+
+				document.getElementById('historico').style.display='block';
+
+				if(retorno.resultado == "sucesso")
+				{
+					$('#tabelaHistorico tbody').empty();
+
+					for (var i = 0; i < 51; i++) {
+						var newRow = $("<tr>");
+						var cols = "";
+						cols += '<td>'+retorno.dados[i].id_venda+'</td>';
+						cols += '<td>'+retorno.dados[i].cliente+'</td>';
+						cols += '<td>'+retorno.dados[i].cpf+'</td>';
+						cols += '<td>'+retorno.dados[i].loja+'</td>';
+						cols += '<td>'+retorno.dados[i].vendedor+'</td>';
+						cols += '<td>'+retorno.dados[i].dta_venda+'</td>';
+						cols += '<td>R$'+retorno.dados[i].valor+'</td>';
+						
+						newRow.append(cols);
+
+						$("#tabelaHistorico").append(newRow); 
+					} 
+
+				}
+				else
+				{
+					$('#ErroGerarRelatorioPedidos').fadeIn();               
+				}
+				
+			}
+		});
+
 	} );
 
 	$('#cliente').on( 'click', 'td.situacaoCliente', function () {
@@ -490,51 +527,8 @@ $(document).ready(function() {
 		        });
 		    }
 		});
-	} );
-
-
-	var table1 = $('#venda').DataTable( {
-		dom: 'Bfrtip',
-		ajax: 'controller/controller_historico.php',
-		columns: [
-			{ 
-				"data": null, render: function ( data, type, row ) 
-				{
-                // Combine the first and last names into a single table field
-                return data.cliente.id_cliente+' - '+data.cliente.nome;
-            	} 
-        	},
-			{
-				"data": "loja.descricao",
-				"searchable": false
-			},
-			{
-				"data": "cliente.numero_rg",
-				"searchable": false
-			},
-			{
-				"data": "vendedor.nome",
-				"searchable": false
-			},
-			{
-				"data": "venda.dta_venda",
-				"searchable": false
-			},
-			{
-				"data": "venda.valor_total_pago",
-				"searchable": false
-			},
-			{
-				"data": "venda.valor_total_liquido",
-				"searchable": false
-			}
-		],
-		select: true,
-		"info":     false,
-		buttons: [
-		]
-	} );	
-} );
+	});
+});
 
 }(jQuery));
 

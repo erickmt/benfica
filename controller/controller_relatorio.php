@@ -348,7 +348,24 @@ class Relatorio {
 		$retorno['data_final']     = date('d/m/Y', strtotime($dataFinal.' 02:02:02'));
 
 		return array("resultado" => "sucesso", "dados" => $retorno);
-    }
+	}
+	
+	function gerarRelatorioHistoricoCliente($idCliente){
+
+		$model_venda   = new Model_Venda($this->conexao);		
+
+		//Busca as vendas realizadas, separadas por forma de pagamento
+		$historico= $model_venda->buscarHistoricoCliente($idCliente); //buscarValoresGeraisVendas
+
+		if($historico['indicador_erro'] == 1)
+			return array("resultado" => "erro", "descricao" => "Erro ao buscar histórico de vendas do cliente.");
+		
+		if($historico['indicador_erro'] == 2)
+			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda para o cliente informado.");
+
+		return array("resultado" => "sucesso", "dados" => $historico['dados']);
+	
+	}
 
     function gerarRelatorioCaixa($dataInicial, $dataFinal, $lojaBusca, $formaPagamento)
     {

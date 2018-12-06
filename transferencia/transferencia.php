@@ -112,6 +112,10 @@
 					case 'gerarRelatorioFaturamentoAno':
 						$retorno = $Relatorio->gerarRelatorioFaturamentoAno($_POST['ano'], $_POST['lojaBusca2']);
 						break;
+
+					case 'gerarRelatorioHistoricoCliente':
+						$retorno = $Relatorio->gerarRelatorioHistoricoCliente($_POST['idCliente']);
+						break;
 						
 					default:
 						$retorno = array("resultado" => "erro");

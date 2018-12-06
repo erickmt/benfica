@@ -58,16 +58,16 @@
 					      <center><h1>Histórico de compras do cliente</h1></center>
 					    </div>
 						<div class="panel-body">
-							<table cellpadding="0" cellspacing="0" border="0" class="display" id="venda" width="100%">
+							<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped table-bordered" id="tabelaHistorico" width="100%">
 								<thead>
 									<tr>
+										<th>Venda</th>
 										<th>ID - Cliente</th>
+										<th>CPF</th>
 										<th>Loja</th>
-										<th>RG</th>
 										<th>Vendedor</th>
 										<th>Data da Compra</th>
 										<th>Valor Total Pago</th>
-										<th>Valor Líquido</th>
 									</tr>
 								</thead>
 							</table>
