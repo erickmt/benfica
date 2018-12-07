@@ -18,7 +18,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">							
-						<table cellpadding="0" cellspacing="0" border="0" class="display" id="ncm" width="100%">
+						<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped table-bordered" id="ncm" width="100%">
 							<thead>
 								<tr>
 									<th>Loja</th>

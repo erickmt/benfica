@@ -168,7 +168,11 @@
 					case 'alterarSituacao':
 						$retorno = $Cadastro->alterarSituacao($_POST['idCliente']);
 						break;
-
+					
+					case 'alterarSenha':
+						$retorno = $Cadastro->alterarSenha($_POST['id_selecionado'],$_POST['novaSenha']);
+						break;
+						
 					case 'atualizaDadosCliente':
 						$retorno = $Cadastro->atualizaDadosCliente($_POST['cpfClienteSelecionado'], $_POST['cepClienteSelecionado'], $_POST['ruaClienteSelecionado'],$_POST['numeroClienteSelecionado'],$_POST['bairroClienteSelecionado'],$_POST['cidadeClienteSelecionado'],$_POST['ufClienteSelecionado'],$_POST['emailClienteSelecionado']);
 						break;

@@ -61,7 +61,12 @@ Editor::inst( $db, 'usuario', 'id_usuario' )
 			->validator( 'Validate::dbValues' ),
 
         Field::inst( 'loja.descricao' )
-		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." ))
+		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." )),
+		
+		Field::inst( 'usuario.situacao' )
+		->setFormatter( function ( $val, $data, $opts ) {
+			   return ! $val ? 0 : 1;
+		} )
     )
     ->leftJoin( 'loja', 'loja.id', '=', 'usuario.id_loja' )      
 	->where( function ( $q ) {

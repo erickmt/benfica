@@ -22,7 +22,7 @@
 				<div class="panel panel-default">
                     <!-- /.panel-heading -->
                     <div class="panel-body" id="painel_principal_venda">
-						<table cellpadding="0" cellspacing="0" border="0" class="display" id="forma_pagamento" width="100%">
+						<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped table-bordered" id="forma_pagamento" width="100%">
 							<thead>
 								<tr>
 									<th>Loja</th>

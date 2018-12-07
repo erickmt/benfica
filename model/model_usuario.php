@@ -58,6 +58,22 @@ class Model_Usuario {
             return array('indicador_erro' => 0, 'descricao' => $linha['descricao']);
         }
 
+
+        function alterarSenhaUsuario($idUsuario, $senha){
+
+            //Monta e executa a query
+            $sql       = "update usuario set senha = '".$senha."' where id_usuario = ".$idUsuario;
+
+            //Executa a query
+            $resultado = $this->conexao->query($sql);
+
+            //Se retornar algum erro
+            if(!$resultado)
+                return array('indicador_erro' => 1);
+
+            return array('indicador_erro' => 0);
+        }
+
 		function buscarUsuario($login, $senha){
 
             //Remove os espaços do início e fim da string de login
@@ -69,7 +85,7 @@ class Model_Usuario {
             $sql       = "select id_usuario, perfil, id_loja
                         from usuario
                         where login = '".$login."'
-                        and senha = '".$senha."'";
+                        and senha = '".$senha."' and situacao = 0";
 
             //Executa a query
             $resultado = $this->conexao->query($sql);
@@ -103,7 +119,7 @@ class Model_Usuario {
                         where login     = '".$login."'
                         and senha       = '".$senha."'
                         and perfil      = '".$perfil."'
-                        and id_usuario  = ".$id_usuario;
+                        and id_usuario  = ".$id_usuario." and situacao = 0";
 
             //Executa a query
             $resultado = $this->conexao->query($sql);
@@ -142,14 +158,14 @@ class Model_Usuario {
                 //Monta e executa a query
                 $sql       = "select perfil
                             from usuario
-                            where id_usuario = ".$id_usuario;                
+                            where situacao = 0 and id_usuario = ".$id_usuario;                
             }
             else 
             {
                 //Monta e executa a query
                 $sql       = "select perfil
                             from usuario
-                            where login = '".$login."'
+                            where situacao = 0 and login = '".$login."'
                             and senha = '".$senha."'";
             }
 

@@ -254,7 +254,7 @@ $(document).ready(function() {
                     
                 },
                 orderable:      false,
-                className:      'situacaoCliente'
+                className:      'situacaoProduto'
             }
 		],
 		select: true,

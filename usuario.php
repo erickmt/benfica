@@ -62,6 +62,7 @@
 	
 	
     <!-- Inclusão JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="vendor/metisMenu/metisMenu.min.js"></script>

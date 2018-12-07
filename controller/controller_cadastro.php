@@ -15,6 +15,22 @@ class Cadastro {
 		$this->conexao = $conexao;
 	}
 	
+
+	function alterarSenha($idUsuario, $senha){
+
+		if(!isset($idUsuario) || empty($idUsuario) || !isset($senha) || empty($senha))
+			$retorno 	= 'Dados informados inválidos';
+
+		$Model_Usuario = new Model_Usuario($this->conexao);
+		$retorno = $Model_Usuario->alterarSenhaUsuario($idUsuario, $senha);
+
+		if($retorno['indicador_erro'] == 1)
+			$retorno 	= 'Erro ao atualizar senha do usuário';
+		
+		$retorno 	= 'Senha atualizada com sucesso';
+		return $retorno;
+	}
+
 	function cadastroCliente($nome, $identidade, $cpf, $orgao_expeditor, $data_nascimento, $mae, $vendedor, $telefone, $endereco, $bairro, $cep, $cidade, $estado, $pais, $observacao)
 	{
 

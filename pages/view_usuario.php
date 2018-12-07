@@ -24,10 +24,21 @@
 							<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="usuario" width="100%">
 								<thead>
 									<tr>
-									    <th width = "5%">ID</th>
-										<th width="15%">Loja</th>
+									    <th width = "7%">ID</th>
+										<th width="10%">Loja</th>
 										<th>Login</th>
 										<th>Perfil</th>
+                                        <th width="15%">
+                                            <div class="dropdown">
+                                            <button type="button" class="" data-toggle="dropdown">Situação
+                                            <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Ativo</a></li>
+                                                <li><a href="#">Desativado</a></li>
+                                                <li><a href="#" class="todos">Todos</a></li>
+                                            </ul>
+                                            </div>
+                                        </th>
                                         <th width="5%"><i class="fa fa-key" aria-hidden="true"></i></th>
 									</tr>
 								</thead>

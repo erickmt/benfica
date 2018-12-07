@@ -95,8 +95,7 @@
                            <!-- /.panel-heading -->
                            <div class="panel-body">
                               <div class="row">
-                                 <div class="col-lg-2"></div>
-                                 <div class="col-lg-8">
+                                 <div class="container">
                                     <!--  Essa div é o relatório de cima e a adriane é linda <3  --> 
                                     <div class="table-responsive">
                                        <table class="table table-striped table-bordered table-hover" id="tabelaPecaCliente">
@@ -124,7 +123,6 @@
                                     </div>
                                     <hr>
                                  </div>
-                                 <div class="col-lg-2"></div>
                               </div>
                            </div>
                         </div>
@@ -224,8 +222,7 @@
                               <div class="panel-body">
                                  
                                  <div class="row">
-                                    <div class="col-lg-2"></div>
-                                    <div class="col-lg-8">
+                                    <div class="container">
                                        <!--  Essa div é o relatório de cima e a adriane é linda <3  --> 
                                        <div class="table-responsive">
                                           <table class="table table-striped table-bordered table-hover" id="tabelaValorRecebidoFormaPagamento">

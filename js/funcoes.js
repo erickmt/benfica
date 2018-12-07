@@ -2929,11 +2929,11 @@ function montaRecibo(dados)
   $("#totalDeslocamentoRecibo").html('<p style="font-size: 11px; margin: 4px; text-align:left;">R$ '+dados.valor_total_outros+'</p>');    
   $("#totalTaxasRecibo").html('<p style="font-size: 11px; margin: 4px; text-align:left;">R$ '+dados.valor_total_taxas+'</p>');
   var loja = "BENFICA";
-  var rodape = '<td class="tg-yw4l" colspan="4" style="font-size: 11px;"><center><b>TATIANE (31) 99288-7558<br>HUDSON (31) 98832-9894<br>EDUARDO (31) 97500-1249<br>INSTA: @BENFICA.LOJA</b></center></td>'                                                                           
+  var rodape = '<td class="tg-yw4l" colspan="4" style="font-size: 11px;"><center><b>TATIANE (31) 99288-7558<br>EDUARDO (31) 97500-1249<br>INSTA: @BENFICA.LOJA</b></center></td>'                                                                           
 
   if(dados.id_loja == 2){
       loja = "SUITS SIX";
-      rodape = '<td class="tg-yw4l" colspan="4" style="font-size: 11px;"><center><b>TATIANE (31) 99288-7558<br>HUDSON (31) 98832-9894<br>EDUARDO (31) 97500-1249<br>INSTA: @SUITS6.STORE</b></center></td>'                                                                           
+      rodape = '<td class="tg-yw4l" colspan="4" style="font-size: 11px;"><center><b>TATIANE (31) 99288-7558<br>EDUARDO (31) 97500-1249<br>INSTA: @SUITS6.STORE</b></center></td>'                                                                           
     }
   $("#tituloRecibo").html('<p style="margin: 12px; text-align:center;">'+loja+' - ATACADO/VAREJO - (31) 2564-7158</p>');    
   $("#rodape").html(rodape);    

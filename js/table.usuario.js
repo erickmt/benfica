@@ -16,11 +16,6 @@ $(document).ready(function() {
 				"name": "usuario.login"
 			},
 			{
-				"label": "Senha:",
-				"name": "usuario.senha",
-				"type" : "password"
-			},
-			{
                 label: "Loja:",
                 name: "usuario.id_loja",
                 type: "select",
@@ -32,12 +27,21 @@ $(document).ready(function() {
 				"type": "select",
 				"placeholder": 'Selecione o perfil',
 				"options": [
-					"Administrador",
-					"Consulta",
-					"Funcionário",					
-					"Sub-gerente"
+					{ label: "Administrador", value: "A" },
+					{ label: "Consulta", value: "C" },
+					{ label: "Funcionário", value: "F" },					
+					{ label: "Sub-gerente", value: "S" }
 				]
-			}
+			},
+			{
+	            label:     "Inativo:",
+	            name:      "usuario.situacao",
+	         	type:      "checkbox",
+                separator: "|",
+                options:   [
+                    { label: '', value: 1 }
+                ]
+            }
 		],
         i18n: {
             create: {
@@ -76,7 +80,7 @@ $(document).ready(function() {
 		var usuario_selecionado = table.cell( this, 2 ).data();
 		
 		var nomeMetodo     = "alterarSenha";
-        var nomeController = "Usuario";
+        var nomeController = "Cadastro";
 
     	//alert(cell);
     	$.confirm({
@@ -85,7 +89,7 @@ $(document).ready(function() {
 			'<form class="formName">' +
 			'<div class="form-group">' +
 			'<label>Nova senha para '+usuario_selecionado+'</label>' +
-			'<input type="number" placeholder="Digite nova senha" class="novaSenha form-control" required />' +
+			'<input type="password" placeholder="Digite nova senha" class="novaSenha form-control" required />' +
 			'</div>' +
 			'</form>',
 		    buttons: {
@@ -94,18 +98,24 @@ $(document).ready(function() {
 		            btnClass: 'btn-blue',
 		            action: function () {
 					   var novaSenha = this.$content.find('.novaSenha').val();
-		               $.confirm({
+					   if(!novaSenha){
+							$.alert('Insira uma senha');
+							return false;
+						}
+						novaSenha = CryptoJS.MD5(novaSenha);
+
+					   $.confirm({
 						    title: 'Confirmar',
-						    content: 'Deseja alterar a senha do cliente?'+novaSenha,
+						    content: 'Confirma alterar a senha do usuário?',
 						    buttons: {
 						        confirmar: function () {
 						        	$.ajax({
 										   type: "POST",
-										   url: "transferencia/transfere.php",
+										   url: "transferencia/transferencia.php",
 										   data: '&nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&id_selecionado=' + id_selecionado + '&novaSenha=' + novaSenha,
-										   success: function(msg){
-										   $.alert('Senha alterada com sucesso!');
-										   table.ajax.reload();
+										   success: function( retorno )
+										   {
+											   $.alert(retorno.replace("'",""));
 										}
 									});
 						        },
@@ -163,6 +173,17 @@ $(document).ready(function() {
                 }
 			},
 			{
+                "data": "usuario.situacao",
+                render: function (data, type, row) {
+                         // Filtering and display get the rendered string
+                        return data == 0 ? "Ativo" : "Desativado";
+                    // Otherwise just give the original data
+                    
+                },
+                orderable:      false,
+                className:      'situacaoUsuario'
+            },
+			{
 				className:      'details-control',
                 orderable:      false,
                 data:           null,
@@ -219,6 +240,21 @@ $(document).ready(function() {
             }
 		}
 	} );
+
+	$('ul').on('click', 'a', function() {
+		table
+		  .columns(4)
+		  .search($(this).text())
+		  .draw();
+	  });
+	   
+	   $('ul').on('click', 'a.todos', function() {
+		table
+		  .search('')
+		  .columns(4)
+		  .search('')
+		  .draw();
+	  });
 
 } );
 
