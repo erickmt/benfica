@@ -728,9 +728,7 @@
                                        &nbsp;2) A mercadoria só será trocada desde que esteja nas mesmas condições em que foi recebido/comprado (na embalagem original; com etiqueta, quando for o caso; bem dobrada e sem qualquer indício de uso).<br>
                                        &nbsp;3) NÃO trocamos peças na cor BRANCA/OFF, peças em Promoção, cuecas, peças intimas, meias, carteiras, cintos, oculos, calçados<br>
                                        &nbsp;4) O produto só poderá ser substituído por outro do mesmo MODELO (Exemplo:  Calça Biotipo por Calça Biotipo | Produtos com códigos por produtos com o mesmo código ), salvo se não houver mais em estoque a LOJA poderá oferecer outro produto semelhante.<br>
-                                       &nbsp;5) CALÇADOS: Trocas somente por defeito de fábrica. <br>
-                                       &nbsp;6) RELOGIOS: 3 meses de garantia da máquina e da bateria - A garantia não cobre pulseira, vidro, pinos, arranhões, etc.<br>
-                                       &nbsp;7) NÃO trocamos produtos que estejam com a etiqueta (tag) rasgadas, danificadas, riscadas ou rasuradas.
+                                       &nbsp;5) NÃO trocamos produtos que estejam com a etiqueta (tag) rasgadas, danificadas, riscadas ou rasuradas.
                                        <center><br>NÃO TROCAMOS PEÇAS SEM ESTA NOTA.
                                           <br>SÁBADO: TROCA DE NO MÁXIMO 5 PEÇAS.
                                        </center>
