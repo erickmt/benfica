@@ -1287,6 +1287,14 @@ class Venda {
 			return array("resultado" => "erro", "descricao" => "A data final informada é menor do que a data inicial informada.");
 
 		$model_venda = new Model_Venda($this->conexao);
+
+		session_start();
+		
+		if($_SESSION['usuario']['id_loja'] != 0 || $lojaBusca == false)
+		{
+			$lojaBusca = $_SESSION['usuario']['id_loja'];
+		}
+
 		$retorno = $model_venda->listarPedidos($nomeCliente, $id_venda, $dataInicial, $dataFinal, $lojaBusca, $situacao, $idPagamento, $multiplasFormas);
 
 		if($retorno['indicador_erro'] == 0)

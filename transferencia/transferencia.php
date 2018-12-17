@@ -205,7 +205,13 @@
 						break;
 
 					case 'listarPedidos':
-						$retorno = $Venda->listarPedidos($_POST['nomeCliente'], $_POST['id_venda'], $_POST['dataInicial'], $_POST['dataFinal'], $_POST['lojaBusca'], $_POST['situacao'], $_POST['idPagamento'], $_POST['multiplasFormas']);
+						
+						$lojaSelecionada = false;
+						if(isset($_POST["lojaBusca"])){
+							$lojaSelecionada = $_POST["lojaBusca"];
+						}
+
+						$retorno = $Venda->listarPedidos($_POST['nomeCliente'], $_POST['id_venda'], $_POST['dataInicial'], $_POST['dataFinal'], $lojaSelecionada, $_POST['situacao'], $_POST['idPagamento'], $_POST['multiplasFormas']);
 						break;
 
 					case 'emitirNota':

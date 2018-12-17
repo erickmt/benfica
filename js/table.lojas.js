@@ -14,6 +14,14 @@ $(document).ready(function() {
 			{
 				"label": "Descrição:",
 				"name": "descricao",
+			},
+			{
+				"label": "Token Tiny:",
+				"name": "chave_tiny",
+			},
+			{
+				"label": "Telefone Nota:",
+				"name": "telefone_nota",
 			}
 		],
         i18n: {
@@ -57,6 +65,9 @@ $(document).ready(function() {
 			},
 			{
 				"data": "descricao"
+			},
+			{
+				"data": "telefone_nota"
 			}
 		],
 		select: true,
@@ -64,7 +75,15 @@ $(document).ready(function() {
 		buttons: [
 			{ extend: 'create', editor: editor },
 			{ extend: 'edit',   editor: editor },
-			{ extend: 'remove', editor: editor }
+			{ extend: 'remove', editor: editor },
+			{
+                extend: "selected",
+                text: 'Nota',
+                action: function ( e, dt, node, config ) {
+					var rows = table.rows( {selected: true} ).indexes();
+					abreModalEditaNota(rows);
+                }
+            }
 		],
 		language: {
 			"decimal":        ",",

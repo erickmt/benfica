@@ -22,6 +22,10 @@ use
 // table has been created). It is a good idea to do this to help improve
 // performance.
 
+if (!isset($_SESSION)) {
+	session_start();
+}	  
+
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, 'loja', 'id' )
 	->fields(
@@ -33,8 +37,30 @@ Editor::inst( $db, 'loja', 'id' )
         ->validator( 'Validate::maxLen', array(
                                     'max' => 255,
                                     'message' => 'Permitido informar no máximo 255 caracteres.'
-        	))
+		)),
+		Field::inst( 'telefone_nota' )
+		->validator( 'Validate::notEmpty', array(
+                "message" => "Campo de preenchimento obrigatório."
+            ) )
+        ->validator( 'Validate::maxLen', array(
+                                    'max' => 15,
+                                    'message' => 'Permitido informar no máximo 255 caracteres.'
+        	)),
+		Field::inst( 'token_tiny' )
+		->validator( 'Validate::notEmpty', array(
+				"message" => "Campo de preenchimento obrigatório."
+			) )
+		->validator( 'Validate::maxLen', array(
+									'max' => 15,
+									'message' => 'Permitido informar no máximo 255 caracteres.'
+			))
 		
 	)
 	->process( $_POST )
+	->where( function ( $q ) {
+		if($_SESSION['usuario']['id_loja'] <> 0)
+	  		$q->where( 'id', $_SESSION['usuario']['id_loja'], '=');
+	  	else
+	  		$q->where( 'id', '0', '<>');
+	})
 	->json();

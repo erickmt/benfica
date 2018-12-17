@@ -89,18 +89,6 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Loja:</label>
-                                <br>
-                                <select class="form-control" name="lojaBusca" id="lojaBusca">
-                                    <?php foreach ($listarLojas as $key => $value): ?>
-                                        <option value="<?php echo $value['id_loja']; ?>"> <?php echo $value['descricao']; ?> </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>  
-                        </div>
-                        
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <label>Emitida:</label>
                                 <br>
                                 <select class="form-control" name="situacao" id="situacao">
@@ -110,6 +98,21 @@
                                 </select>
                             </div>  
                         </div>
+
+                        <?php if ($_SESSION['usuario']['id_loja'] == '0'): ?>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Loja:</label>
+                                <br>
+                                <select class="form-control" name="lojaBusca" id="lojaBusca">
+                                    <?php foreach ($listarLojas as $key => $value): ?>
+                                        <option value="<?php echo $value['id_loja']; ?>"> <?php echo $value['descricao']; ?> </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>  
+                        </div>
+                        <?php endif; ?>
+
                         <div class="col-lg-12">
                             <div class="row">
                                 <center>

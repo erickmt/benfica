@@ -3589,6 +3589,11 @@ function montaRecibo(dados)
         return false;
       }
 
+    function abreModalEditaNota(idLoja)
+    {
+      $('#modalNota').modal('show');
+    }
+
     function devolverConsignado(id_produto, produto, quantidade_dev){
 
       var nomeMetodo     = "devolveConsignado";

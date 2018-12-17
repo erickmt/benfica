@@ -13,7 +13,6 @@
 				<h1 class="page-header">Gestão de Lojas</h1>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -23,6 +22,7 @@
 								<tr>
 									<th width="5%">Id</th>	
 									<th>Descrição</th>	
+									<th>Telefone</th>		
 								</tr>
 							</thead>
 						</table>						
@@ -37,3 +37,31 @@
 	</div>
 <!-- /#page-wrapper -->
 </div>
+
+	<!-- Modal -->
+	<div class="modal fade bd-example-modal-lg" id="modalNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+		
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+			<h4 class="modal-title" id="myModalLabel">Detalhes da nota</h4>
+		  </div>
+		  
+		  <div class="modal-body">
+
+      <h4>Contato da nota</h4>
+      <textarea rows="4" style="width:100%">
+        Testes de parametros para nota não liberados
+      </textarea>
+      
+      <h4>Instruções da nota</h4>
+      <textarea rows="10" style="width:100%">
+        Testes de parametros para nota não liberados
+      </textarea>
+
+		  </div>
+		  		  
+		</div>
+	  </div>
+	</div>
