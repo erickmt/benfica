@@ -176,6 +176,14 @@
 					case 'atualizaDadosCliente':
 						$retorno = $Cadastro->atualizaDadosCliente($_POST['cpfClienteSelecionado'], $_POST['cepClienteSelecionado'], $_POST['ruaClienteSelecionado'],$_POST['numeroClienteSelecionado'],$_POST['bairroClienteSelecionado'],$_POST['cidadeClienteSelecionado'],$_POST['ufClienteSelecionado'],$_POST['emailClienteSelecionado']);
 						break;
+
+					case 'buscarDadosNotaLoja':
+						$retorno = $Cadastro->buscarDadosNotaLoja($_POST['idLoja']);
+						break;
+
+					case 'atualizarDadosNotaLoja':
+						$retorno = $Cadastro->atualizarDadosNotaLoja($_POST['idLoja'], nl2br($_POST['contato']), nl2br($_POST['descricao']));
+						break;
 				}
 				break;	
 

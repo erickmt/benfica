@@ -22,6 +22,29 @@ $(document).ready(function() {
 			{
 				"label": "Telefone Nota:",
 				"name": "telefone_nota",
+			},
+			{
+				"label": "Contato Rodapé Nota:",
+				"name": "contato_nota",
+				type: "textarea",
+				attr:  {
+					class: "form-control",
+				    rows: "5",
+				    cols: "8",
+				    length : "255",
+					placeholder: 'Máximo de 255 caracteres'
+				}
+			},
+			{
+				label: "Detalhes Nota:",
+				name: "descricao_nota",
+				type: "textarea",
+				className: 'block',
+				attr:  {
+					class: "form-control",
+				    rowspan: "7",
+					cols: "12"
+				}
 			}
 		],
         i18n: {
@@ -76,14 +99,14 @@ $(document).ready(function() {
 			{ extend: 'create', editor: editor },
 			{ extend: 'edit',   editor: editor },
 			{ extend: 'remove', editor: editor },
-			{
-                extend: "selected",
-                text: 'Nota',
-                action: function ( e, dt, node, config ) {
-					var rows = table.rows( {selected: true} ).indexes();
-					abreModalEditaNota(rows);
-                }
-            }
+			// {
+            //     extend: "selected",
+            //     text: 'Nota',
+            //     action: function ( e, dt, node, config ) {
+			// 		var rows = table.rows( {selected: true} ).indexes();
+			// 		abreModalEditaNota(rows[0]);
+            //     }
+            // }
 		],
 		language: {
 			"decimal":        ",",

@@ -191,7 +191,7 @@
                     <div class="tab-pane" id="passo04">
                         <br>
                         <div class="iconeFixo">
-                           <BR><BR>
+                           <BR>
                            <a href="javascript:void(0)" onclick="printDiv();" ><img src="library/impressora-2.png" alt="Imprimir Recibo" height="50" width="50"></a>
                         </div>
                         <br>
@@ -200,8 +200,8 @@
                               <table border="1" id="tabelaRecibo" width="90%">
                                  <tfixo1>
                                     <tr bgcolor="#DCDCDC">
-                                       <th width="100%" colspan="4" id="tituloRecibo">
-                                          <p style="margin: 12px; text-align:center;">BENFICA LOJA - ATACADO/VAREJO - (31) 2564-7158</p>
+                                       <th width="100%" colspan="4">
+                                          <p style="margin: 12px; text-align:center;" id="tituloRecibo"></p>
                                        </th>
                                     </tr>
                                     <tr bgcolor="#F5F5F5">
@@ -293,24 +293,23 @@
                                     </td>
                                  </tr>
                                  <tr>
-                                    <td class="tg-yw4l" colspan="4" style="font-size: 10.5px; line-height: 15px">
-                                       <br>
-                                       &nbsp;1) Prazo máximo para troca: 30 (trinta) dias corridos a partir da data da compra - sem renovação;<br>
-                                       &nbsp;2) A mercadoria só será trocada desde que esteja nas mesmas condições em que foi recebido/comprado (na embalagem original; com etiqueta, quando for o caso; bem dobrada e sem qualquer indício de uso).<br>
-                                       &nbsp;3) NÃO trocamos peças na cor BRANCA/OFF, peças em Promoção, cuecas, peças intimas, meias, carteiras, cintos, oculos, calçados<br>
-                                       &nbsp;4) O produto só poderá ser substituído por outro do mesmo MODELO (Exemplo: Bermudas Jeans por Bermudas Jeans | Calças jeans por calça jeans), salvo se não houver mais em estoque a BENFICA LOJA poderá oferecer outro produto semelhante.<br>
-                                       &nbsp;5) NÃO trocamos produtos que estejam com a etiqueta (tag) rasgadas, danificadas, riscadas ou rasuradas.
-                                       <center><br>NÃO TROCAMOS PEÇAS SEM ESTA NOTA.
-                                          <br>SÁBADO: TROCA DE NO MÁXIMO 5 PEÇAS.
-                                       </center>
-                                       <br>
+                                    <td class="tg-yw4l" id="descricao_nota" colspan="4" style="font-size: 10.5px; line-height: 15px; padding: 5px;">
+                                     
                                     </td>
                                  </tr>
-                                 <tr bgcolor="#F5F5F5" id="rodape">
+                                 <tr bgcolor="#DCDCDC">
+                                    <td colspan="4" style="font-size: 10.5px; line-height: 15px; margin: 10">
+                                        <p style="margin: 5px; text-align:center; font-weight: bold;">
+                                            NÃO TROCAMOS PEÇAS SEM ESTA NOTA.
+                                            <br />SÁBADO: TROCA DE NO MÁXIMO 5 PEÇAS
+                                        </p>
+                                    </td>
+                                 </tr>
+                                 <tr bgcolor="#F5F5F5">
                                     <td class="tg-yw4l" colspan="4" style="font-size: 11px;">
-                                       <center><b>TATIANE (31) 99288-7558<br>
-                                          EDUARDO (31) 97500-1249<br>
-                                          INSTA: @BENFICA.LOJA</b>
+                                       <center>
+                                       <b id="rodape">
+                                       </b>
                                        </center>
                                     </td>
                                  </tr>
@@ -318,6 +317,7 @@
                               </table>
                            </center>
                         </div>
+                        <br />
                      </div>
                    </div>
                   </div>

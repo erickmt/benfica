@@ -718,7 +718,22 @@ class Model_Venda
         $retorno['itens_venda'] = $itens_venda;
         if (isset($formas_pagamento))
             $retorno['formas_pagamento'] = $formas_pagamento;
-        
+
+        $sql = "SELECT descricao, descricao_nota, contato_nota, telefone_nota  FROM `loja` WHERE id = ".$retorno['id_loja'].";";
+    
+        $resultado = $this->conexao->query($sql);
+
+        //Se retornar alguma linha
+        if ($resultado && mysqli_num_rows($resultado) > 0)
+        {   
+            $linha = mysqli_fetch_array($resultado);
+
+            $retorno['nome_loja']       = $linha['descricao'];
+            $retorno['descricao_nota']  = nl2br($linha['descricao_nota']);
+            $retorno['contato_nota']    = nl2br($linha['contato_nota']);
+            $retorno['telefone_nota']   = $linha['telefone_nota'];
+        };
+
         return array(
             "retorno" => "sucesso",
             'indicador_erro' => 0,
@@ -727,6 +742,45 @@ class Model_Venda
     }
     
     
+    function buscarDadosNotaLoja($idLoja){
+
+        $sql = "select descricao, descricao_nota, contato_nota, telefone_nota FROM loja where id = ".$idLoja.";";
+        
+        $resultado = $this->conexao->query($sql);
+
+
+        //Se retornar algum erro
+        if (!$resultado)
+            return false;
+
+        $linha = mysqli_fetch_array($resultado);
+
+        $retorno['nome_loja']       = $linha['descricao'];
+        $retorno['descricao_nota']  = nl2br($linha['descricao_nota']);
+        $retorno['contato_nota']    = nl2br($linha['contato_nota']);
+        $retorno['telefone_nota']   = $linha['telefone_nota'];
+
+        return array(
+            "resultado" => "sucesso",
+            'indicador_erro' => 0,
+            'dados' => $retorno
+        );
+    }
+
+    function atualizaDadosNotaLoja($idLoja, $contato, $descricao){
+
+        $sql = "update loja set contato_nota = '".$contato."', descricao_nota = '".$descricao."' where id = ".$idLoja.";";
+
+        $resultado = $this->conexao->query($sql);
+
+        if(!$resultado)
+            return array("resultado" => "erro", "indicador_erro" => 1, "dados" => "Erro ao atualizado dados da nota");
+        else
+            return array("resultado" => "sucesso", "indicador_erro" => 1, "dados" => "Dados atualizados com sucesso");
+    }
+
+
+
     /**
      * marcarVendaExcluida
      * @author Victor

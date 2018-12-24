@@ -2,6 +2,7 @@
 	<link rel="stylesheet" type="text/css" href="css/datatables.min.css">
 	<link rel="stylesheet" type="text/css" href="css/generator-base.css">
 	<link rel="stylesheet" type="text/css" href="css/editor.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
 
 	<script type="text/javascript" charset="utf-8" src="js/datatables.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/dataTables.editor.min.js"></script>
@@ -17,7 +18,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">							
-						<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped table-bordered" id="lojas" width="100%">
+						<table cellpadding="0" cellspacing="0" border="0" class="display table table-striped table-bordered" id="lojas" style="width:100%" width="100%">
 							<thead>
 								<tr>
 									<th width="5%">Id</th>	
@@ -25,7 +26,10 @@
 									<th>Telefone</th>		
 								</tr>
 							</thead>
-						</table>						
+						</table>
+						<br />
+						<div class="alert alert-danger" role="alert" id="ErroGerarRelatorio" style="display: none;"> </div>
+
 					</div>
 				<!-- /.panel-body -->
 				</div>
@@ -39,29 +43,26 @@
 </div>
 
 	<!-- Modal -->
-	<div class="modal fade bd-example-modal-lg" id="modalNota" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<!-- <div class="modal fade bd-example-modal-lg" id="modalNotaLoja" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 		
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
-			<h4 class="modal-title" id="myModalLabel">Detalhes da nota</h4>
+			<h4 class="modal-title" id="labelNotaLoja"></h4>
 		  </div>
 		  
 		  <div class="modal-body">
 
-      <h4>Contato da nota</h4>
-      <textarea rows="4" style="width:100%">
-        Testes de parametros para nota não liberados
-      </textarea>
-      
-      <h4>Instruções da nota</h4>
-      <textarea rows="10" style="width:100%">
-        Testes de parametros para nota não liberados
-      </textarea>
-
+      	<h5>Contato da nota</h5>
+				<textarea rows="4" style="width:50%" id="contatoNota"></textarea>
+				
+				<h5>Instruções da nota</h5>
+				<textarea rows="10" style="width:100%" id="descricaoNota"></textarea>
+				
+				<button class="btn btn-button btn-primary" onclick="atualizarNota()" > Confirmar </button>
 		  </div>
 		  		  
 		</div>
 	  </div>
-	</div>
+	</div> -->

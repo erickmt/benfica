@@ -629,8 +629,8 @@
                               <table border="1" id="tabelaRecibo" width="90%">
                                  <tfixo1>
                                     <tr bgcolor="#DCDCDC">
-                                       <th width="100%" colspan="4" id="tituloRecibo">
-                                          <p style="margin: 12px; text-align:center;">BENFICA LOJA - ATACADO/VAREJO - (31) 2564-7158</p>
+                                       <th width="100%" colspan="4">
+                                          <p style="margin: 12px; text-align:center;" id="tituloRecibo"></p>
                                        </th>
                                     </tr>
                                     <tr bgcolor="#F5F5F5">
@@ -639,8 +639,8 @@
                                        </td>
                                     </tr>
                                     <tr>
-                                       <td class="tg-yw4l" colspan="1" style="line-height: 1.5;" id="identificacaoClienteRecibo" >&nbsp;&nbsp;<b>Cliente:</b> <br>&nbsp;&nbsp;<b>RG:</b><br>&nbsp;&nbsp;<b>Telefone:</b> <br></td>
-                                       <td class="tg-yw4l" colspan="3" style="line-height: 1.5;" id="identificacaoVendaRecibo">&nbsp;&nbsp;<b>Código da venda:</b> <br>&nbsp;&nbsp;<b>Data:</b> <br>&nbsp;&nbsp;<b>Vendedor:</b> <br></td>
+                                       <td class="tg-yw4l" colspan="1" style="line-height: 1.5;" id="identificacaoClienteRecibo" >&nbsp;&nbsp;<b>Cliente:</b> André Luiz da Silva (Atacadista)<br>&nbsp;&nbsp;<b>RG:</b> 3234544323<br>&nbsp;&nbsp;<b>Telefone:</b> 98784532<br></td>
+                                       <td class="tg-yw4l" colspan="3" style="line-height: 1.5;" id="identificacaoVendaRecibo">&nbsp;&nbsp;<b>Código da venda:</b> 33234<br>&nbsp;&nbsp;<b>Data:</b> 11/11/2017<br>&nbsp;&nbsp;<b>Vendedor:</b> Luiz Silva<br></td>
                                     </tr>
                                     <tr bgcolor="#F5F5F5">
                                        <td class="tg-yw4l" width="50%">
@@ -676,7 +676,7 @@
                                        <p style="font-size: 11px; margin: 4px;">TOTAL EM PRODUTOS</p>
                                     </td>
                                     <td id="totalProdutosRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -684,7 +684,7 @@
                                        <p style="font-size: 11px; margin: 4px;">TOTAL DA VENDA</p>
                                     </td>
                                     <td id="totalVenda">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -692,7 +692,7 @@
                                        <p style="font-size: 11px; margin: 4px;">DESCONTO NA VENDA</p>
                                     </td>
                                     <td id="totalCreditoRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -700,7 +700,7 @@
                                        <p style="font-size: 11px; margin: 4px;">FRETE/CORREIOS/MOTOBOY/OUTROS</p>
                                     </td>
                                     <td id="totalDeslocamentoRecibo">
-                                       <p style="font-size: 11px; margin: 4px; text-align:left;"></p>
+                                       <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 40,00</p>
                                     </td>
                                  </tr>
                                  <tr>
@@ -708,7 +708,7 @@
                                         <p style="font-size: 11px; margin: 4px;">DESCONTO NO PAGAMENTO</p>
                                     </td>
                                     <td id="totalTaxasRecibo">
-                                        <p style="font-size: 11px; margin: 4px; text-align:left;">/p>
+                                        <p style="font-size: 11px; margin: 4px; text-align:left;">R$ 30,00</p>
                                     </td>
                                  </tr>                    
                                  <tr bgcolor="#DCDCDC">
@@ -722,25 +722,23 @@
                                     </td>
                                  </tr>
                                  <tr>
-                                    <td class="tg-yw4l" colspan="4" style="font-size: 10.5px; line-height: 15px" id="textoNota">
-                                       <br>
-                                       &nbsp;1) Prazo máximo para troca: 30 (trinta) dias corridos a partir da data da compra - sem renovação;<br>
-                                       &nbsp;2) A mercadoria só será trocada desde que esteja nas mesmas condições em que foi recebido/comprado (na embalagem original; com etiqueta, quando for o caso; bem dobrada e sem qualquer indício de uso).<br>
-                                       &nbsp;3) NÃO trocamos peças na cor BRANCA/OFF, peças em Promoção, cuecas, peças intimas, meias, carteiras, cintos, oculos, calçados<br>
-                                       &nbsp;4) O produto só poderá ser substituído por outro do mesmo MODELO (Exemplo:  Calça Biotipo por Calça Biotipo | Produtos com códigos por produtos com o mesmo código ), salvo se não houver mais em estoque a LOJA poderá oferecer outro produto semelhante.<br>
-                                       &nbsp;5) NÃO trocamos produtos que estejam com a etiqueta (tag) rasgadas, danificadas, riscadas ou rasuradas.
-                                       <center><br>NÃO TROCAMOS PEÇAS SEM ESTA NOTA.
-                                          <br>SÁBADO: TROCA DE NO MÁXIMO 5 PEÇAS.
-                                       </center>
-                                       <br>
+                                    <td class="tg-yw4l" id="descricao_nota" colspan="4" style="font-size: 10.5px; line-height: 15px; padding: 5px;">
+                                     
                                     </td>
                                  </tr>
-                                 <tr bgcolor="#F5F5F5" id="rodape">
+                                 <tr bgcolor="#DCDCDC">
+                                    <td colspan="4" style="font-size: 10.5px; line-height: 15px; margin: 10">
+                                        <p style="margin: 5px; text-align:center; font-weight: bold;">
+                                            NÃO TROCAMOS PEÇAS SEM ESTA NOTA.
+                                            <br />SÁBADO: TROCA DE NO MÁXIMO 5 PEÇAS
+                                        </p>
+                                    </td>
+                                 </tr>
+                                 <tr bgcolor="#F5F5F5">
                                     <td class="tg-yw4l" colspan="4" style="font-size: 11px;">
-                                       <center><b>TATIANE (31) 99288-7558<br>
-                                          HUDSON (31) 98832-9894<br>
-                                          EDUARDO (31) 97500-1249<br>
-                                          INSTA: @BENFICA.LOJA</b>
+                                       <center>
+                                       <b id="rodape">
+                                       </b>
                                        </center>
                                     </td>
                                  </tr>
@@ -748,7 +746,6 @@
                               </table>
                            </center>
                         </div>
-                     </div>
                   </div>
                </div>
                <!-- /.panel-body -->

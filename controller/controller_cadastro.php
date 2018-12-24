@@ -15,6 +15,29 @@ class Cadastro {
 		$this->conexao = $conexao;
 	}
 	
+	function buscarDadosNotaLoja($idLoja){
+
+		$retorno = array("resultado" => "erro", "dados" => "Erro ao buscar loja");
+		if($idLoja == null || !is_numeric($idLoja) || empty($idLoja))
+			return $retorno;
+		
+		$model_venda = new Model_Venda($this->conexao);
+		$retorno = $model_venda->buscarDadosNotaLoja($idLoja);
+
+		return $retorno;
+	}
+
+	function atualizarDadosNotaLoja($idLoja, $contato, $descricao){
+
+		$retorno = array("resultado" => "erro", "dados" => "Erro ao atualizar loja");
+		if($idLoja == null || !is_numeric($idLoja) || empty($idLoja))
+			return $retorno;
+		
+		$model_venda = new Model_Venda($this->conexao);
+		$retorno = $model_venda->atualizaDadosNotaLoja($idLoja, $contato, $descricao);
+
+		return $retorno;
+	}
 
 	function alterarSenha($idUsuario, $senha){
 

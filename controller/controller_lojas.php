@@ -51,16 +51,18 @@ Editor::inst( $db, 'loja', 'id' )
 				"message" => "Campo de preenchimento obrigatório."
 			) )
 		->validator( 'Validate::maxLen', array(
-									'max' => 15,
+									'max' => 50,
+									'message' => 'Permitido informar no máximo 50 caracteres.'
+		)),
+		Field::inst( 'contato_nota' )
+		->validator( 'Validate::maxLen', array(
+									'max' => 255,
 									'message' => 'Permitido informar no máximo 255 caracteres.'
-			))
-		
+		)),
+		Field::inst( 'descricao_nota' )
 	)
 	->process( $_POST )
 	->where( function ( $q ) {
-		if($_SESSION['usuario']['id_loja'] <> 0)
-	  		$q->where( 'id', $_SESSION['usuario']['id_loja'], '=');
-	  	else
-	  		$q->where( 'id', '0', '<>');
+	  		$q->where( 'loja.id', '0', '<>');
 	})
 	->json();

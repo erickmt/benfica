@@ -1001,6 +1001,16 @@ class Venda {
 		$gravacaoVenda['dados']['perfil']      = $dadosCliente['dados']['perfil'];
 		$gravacaoVenda['dados']['dia']         = date("d/m/Y");
 
+
+		$model_venda = new Model_Venda($this->conexao);
+		$retorno = $model_venda->buscarDadosNotaLoja($_SESSION['usuario']['lojaVenda']);
+
+		$gravacaoVenda['dados']['nome_loja'] = $retorno['dados']['nome_loja'];
+		$gravacaoVenda['dados']['descricao_nota'] = $retorno['dados']['descricao_nota'];
+		$gravacaoVenda['dados']['contato_nota'] = $retorno['dados']['contato_nota'];
+		$gravacaoVenda['dados']['telefone_nota'] = $retorno['dados']['telefone_nota'];
+
+
 		$retorno = array('resultado' => 'sucesso', 'dados' => $gravacaoVenda['dados']);
 		return $retorno;						
 	}
