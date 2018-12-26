@@ -741,6 +741,26 @@ class Model_Venda
         );
     }
     
+    function buscarTokenTiny($idLoja){
+        $sql = "select token_tiny from loja where id = ".$idLoja.";";
+
+        $resultado = $this->conexao->query($sql);
+
+        //Se retornar algum erro
+        if (!$resultado)
+        return array(
+            "resultado" => "erro",
+            'indicador_erro' => 1,
+            'dados' => "Token da loja não encontrada"
+        );
+
+        $linha = mysqli_fetch_array($resultado);
+
+        $retorno['token']       = $linha['token_tiny'];
+
+        return $retorno['token'];
+
+    }
     
     function buscarDadosNotaLoja($idLoja){
 

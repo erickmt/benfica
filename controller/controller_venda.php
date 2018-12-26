@@ -62,11 +62,14 @@ class Venda {
 	}
 
 	function visualizarNota($id, $loja){
-		if($loja == 1 || $loja == 3)
-			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		else
-			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+		// if($loja == 1 || $loja == 3)
+		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
+		// else
+		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
 
+		$model_venda = new Model_Venda($this->conexao);
+		$token = $model_venda->buscarTokenTiny($loja);
+		
 		$url = 'https://api.tiny.com.br/api2/nota.fiscal.obter.link.php';
 		$data = "token=$token&id=$id&formato=json";
 		
@@ -1207,21 +1210,23 @@ class Venda {
 
 		$nota_fiscal["nota_fiscal"] = $pedidoTiny;
 
-		//$valorTotal = $dadosPedido['dados']['totalVenda'] ;
+		$model_venda = new Model_Venda($this->conexao);
+
 		$nota_fiscal = $this->converteArrayParaUtf8($nota_fiscal);
 		$nota_fiscal = json_encode($nota_fiscal);
 		$url = 'https://api.tiny.com.br/api2/nota.fiscal.incluir.php';
-		if($loja == 1 || $loja == 3)
-			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		else
-			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+		$token = $model_venda->buscarTokenTiny($loja);
+
+		// if($loja == 1 || $loja == 3)
+		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
+		// else
+		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
 
 		$data = "&token=$token&nota=$nota_fiscal&formato=json";
 
 		$resposta = $this->enviarREST($url, $data);
 		$resposta = json_decode($resposta, true);
 		
-		$model_venda = new Model_Venda($this->conexao);
 		if($resposta['retorno']['status_processamento'] != 1)
 			$model_venda->gravarPedido($pedidoTiny, $idCliente, $valorTotal, $resposta, $naoEmitir);
 
@@ -1239,11 +1244,14 @@ class Venda {
 
 	function obterPedido($idPedido, $loja){
 		$url = 'https://api.tiny.com.br/api2/notas.fiscais.pesquisa.php';
+
+		$model_venda = new Model_Venda($this->conexao);
+		$token = $model_venda->buscarTokenTiny($loja);
 		
-		if($loja == 1 || $loja == 3)
-			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		else
-			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+		// if($loja == 1 || $loja == 3)
+		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
+		// else
+		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
 		
 		$data = "token=$token&numero=$idPedido&formato=json";
 		$resposta = $this->enviarREST($url, $data);
@@ -1253,10 +1261,14 @@ class Venda {
 	}
 
 	function emitirNotaPedido($id, $loja){
-		if($loja == 1 || $loja == 3)
-			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		else
-			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+		// if($loja == 1 || $loja == 3)
+		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
+		// else
+		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+
+		$model_venda = new Model_Venda($this->conexao);
+		$token = $model_venda->buscarTokenTiny($loja);
+
 		$formato = 'json';
 		$url = 'https://api.tiny.com.br/api2/gerar.nota.fiscal.pedido.php';
 		$data = "token=$token&id=$id&formato=$formato";
@@ -1268,10 +1280,13 @@ class Venda {
 	}
 
 	function emitirNotaFiscal($id, $loja){
-		if($loja == 1 || $loja == 3)
-			$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		else
-			$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+		// if($loja == 1 || $loja == 3)
+		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
+		// else
+		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
+
+		$model_venda = new Model_Venda($this->conexao);
+		$token = $model_venda->buscarTokenTiny($loja);
 
 		$url = 'https://api.tiny.com.br/api2/nota.fiscal.emitir.php';
 		$data = "token=$token&id=$id&formato=json";

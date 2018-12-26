@@ -17,7 +17,7 @@ $(document).ready(function() {
 			},
 			{
 				"label": "Token Tiny:",
-				"name": "chave_tiny",
+				"name": "token_tiny",
 			},
 			{
 				"label": "Telefone Nota:",
