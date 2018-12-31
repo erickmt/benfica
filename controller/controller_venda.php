@@ -591,12 +591,15 @@ class Venda {
 		//TRATAMENTO DE CASOS QUE JÁ ENCONTRA UMA FORMA DE PAGAMENTO
 		$encontrouForma = -1;
 
-		//Percorre todos os produtos da lista. Se já existe algum produto igual na lista, soma a sua quantidade
-		for($i=0; $i < count($_SESSION['usuario']['formasPagamento']); $i++)
-		{
+		if (strpos($nomeFormaPagamento, 'DINHEIRO') !== false) {
 
-			if($_SESSION['usuario']['formasPagamento'][$i]['idFormaPagamento'] == $idFormaPagamento)
-				$encontrouForma = $i;
+			//Percorre todos os produtos da lista. Se já existe algum produto igual na lista, soma a sua quantidade
+			for($i=0; $i < count($_SESSION['usuario']['formasPagamento']); $i++)
+			{
+
+				if($_SESSION['usuario']['formasPagamento'][$i]['idFormaPagamento'] == $idFormaPagamento)
+					$encontrouForma = $i;
+			}		
 		}
 
 		//Se houver encontrado uma forma de pagamento semelhante, adiciona os valores
@@ -609,7 +612,7 @@ class Venda {
 			
 			if($indicadorConsiderarTaxas == 'S')
 				// Calcula a nova porcentagem cobrada... perceba que o valor da venda mudou
-				$valorFormaPagamento = ($formaPagamento['dados'] * $_SESSION['usuario']['formasPagamento'][$encontrouForma]['valorVenda']) + $_SESSION['usuario']['formasPagamento'][$encontrouForma]['valorVenda'];
+				$valorFormaPagamento = $_SESSION['usuario']['formasPagamento'][$encontrouForma]['valorVenda'] - ($formaPagamento['dados'] * $_SESSION['usuario']['formasPagamento'][$encontrouForma]['valorVenda']) ;
 			else 
 				$valorFormaPagamento = $_SESSION['usuario']['formasPagamento'][$encontrouForma]['valorVenda'];
 
