@@ -17,11 +17,16 @@ $(document).ready(function() {
 				type:  "text"
 			},
 			{
+                label: "Código de barras:",
+                name: "produto.codigo_barra",
+				type:  "text"
+			},
+			{
                 label: "Loja:",
                 name: "produto.id_loja",
                 type: "select",
                 placeholder: ""
-			},
+			},	
 			{
                 label: "Tipo:",
                 name: "produto.id_tipo_produto",
@@ -81,15 +86,15 @@ $(document).ready(function() {
 				"label": "Quantidade em estoque:",
 				"name": "produto.quantidade_estoque"
 			},
-			{
-	            label:     "Inativo:",
-	            name:      "produto.situacao",
-	         	type:      "checkbox",
-                separator: "|",
-                options:   [
-                    { label: '', value: 1 }
-                ]
-            }
+			// {
+	        //     label:     "Inativo:",
+	        //     name:      "produto.situacao",
+	        //  	type:      "checkbox",
+            //     separator: "|",
+            //     options:   [
+            //         { label: '', value: 1 }
+            //     ]
+            // }
 		],
         i18n: {
             create: {

@@ -135,6 +135,13 @@ Editor::inst( $db, 'produto', 'id_produto' )
         Field::inst( 'loja.descricao' )
 		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." )),
 		
+        Field::inst( 'produto.codigo_barra' )
+		->validator( 'Validate::numeric', array("message" => "Permitido informar somente números." ))	
+        ->validator( 'Validate::maxLen', array(
+                                    'max' => 10,
+                                    'message' => 'Permitido informar no máximo 10 caracteres.'
+        	)),
+
 		Field::inst( 'produto.situacao' )
 		 ->setFormatter( function ( $val, $data, $opts ) {
                 return ! $val ? 0 : 1;
