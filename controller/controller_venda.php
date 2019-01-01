@@ -666,7 +666,9 @@ class Venda {
 			$forma = array();
 
 			$forma['idFormaPagamento'] 		= $_SESSION['usuario']['formasPagamento'][$i]['idFormaPagamento'];
+			$forma['idArray'] 		= $i;
 			$forma['nomeFormaPagamento'] 	= $_SESSION['usuario']['formasPagamento'][$i]['nomeFormaPagamento'];
+			$forma['quantidadeParcelas'] 	= $_SESSION['usuario']['formasPagamento'][$i]['quantidadeParcelas'];
 			$forma['valorVenda'] 			= number_format($_SESSION['usuario']['formasPagamento'][$i]['valorVenda'], 2, ',', '.');
 			$forma['valorFormaPagamento'] 	= number_format($_SESSION['usuario']['formasPagamento'][$i]['valorFormaPagamento'], 2, ',', '.');
 
@@ -680,8 +682,6 @@ class Venda {
 
 	function excluirFormaPagamento($idFormaPagamento)
 	{
-
-
 		session_start();	
 		$aux 						= 0;
 		$novaListaFormasPagamento 	= array();
@@ -692,7 +692,7 @@ class Venda {
 		//Percorre todos os produtos da lista para recálculo
 		for($i=0; $i < count($_SESSION['usuario']['formasPagamento']); $i++)
 		{
-			if ($_SESSION['usuario']['formasPagamento'][$i]['idFormaPagamento'] != $idFormaPagamento)
+			if ($i != $idFormaPagamento)
 			{
 				$novaListaFormasPagamento[] = $_SESSION['usuario']['formasPagamento'][$i];
 				//$totalPago 					= $totalPago + $_SESSION['usuario']['formasPagamento'][$i]['valorFormaPagamento']; 

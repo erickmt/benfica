@@ -2493,8 +2493,9 @@ $(document).ready(function(){
                   cols += '<td>'+retorno.formasPagamento[i].nomeFormaPagamento+'</td>';
                   cols += '<td><center>R$ '+retorno.formasPagamento[i].valorVenda+'</center></td>';
                   cols += '<td><center>R$ '+retorno.formasPagamento[i].valorFormaPagamento+'</center></td>';
+                  cols += '<td><center>R$ '+retorno.formasPagamento[i].quantidadeParcelas+'</center></td>';
 
-                  cols += "<td><button type='button' class='btn btn-default btn-xs' onclick='excluirFormaPagamento("+retorno.formasPagamento[i].idFormaPagamento+")'><i class='fa fa-times'></i> Excluir</button></td>";
+                  cols += "<td><button type='button' class='btn btn-default btn-xs' onclick='excluirFormaPagamento("+retorno.formasPagamento[i].idArray+")'><i class='fa fa-times'></i> Excluir</button></td>";
 
                   newRow.append(cols);
                   $("#listaFormasDePagamento").append(newRow);    

@@ -482,6 +482,7 @@
                                                 <th>Forma De Pagamento</th>
                                                 <th>Valor em produtos</th>
                                                 <th>Valor total (c/ desconto)</th>
+                                                <th>Parcelas</th>
                                                 <th></th>
                                              </tr>
                                           </thead>
