@@ -762,6 +762,12 @@ class Model_Venda
 
     }
     
+
+    function inserirProdutosOrcamento($produtos, $cliente, $idOrcamento){
+
+    }
+
+
     function buscarDadosNotaLoja($idLoja){
 
         $sql = "select descricao, descricao_nota, contato_nota, telefone_nota FROM loja where id = ".$idLoja.";";

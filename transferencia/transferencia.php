@@ -78,15 +78,11 @@
 						break;	
 
 					case 'gerarRelatorioPecas':
-						$retorno = $Relatorio->gerarRelatorioPecas($_POST['tipoProduto'],$_POST['dataInicial'], $_POST['dataFinal'],$_POST['produtoSelecionado'],$_POST['lojaBuscaPeca'], $_POST['tipoRelatorio']);
+						$retorno = $Relatorio->gerarRelatorioPecas($_POST['tipoProdutoRelatorio'],$_POST['dataInicial'], $_POST['dataFinal'],$_POST['produtoSelecionado'],$_POST['lojaBuscaPeca'], $_POST['tipoRelatorio']);
 						break;
 
 					case 'gerarRelatorioConsignado':
-						$retorno = $Relatorio->gerarRelatorioConsignado($_POST['cliente'], $_POST['tipoProduto'],$_POST['dataInicial'], $_POST['dataFinal'],$_POST['produtoSelecionado'],$_POST['lojaBusca'],$_POST['devolvidas']);
-						break;
-
-					case 'gerarRelatorioPecas':
-						$retorno = $Relatorio->gerarRelatorioPecas($_POST['tipoProduto'],$_POST['dataInicial'], $_POST['dataFinal'],$_POST['produtoSelecionado'],$_POST['lojaBuscaPeca'], $_POST['tipoRelatorio']);
+						$retorno = $Relatorio->gerarRelatorioConsignado($_POST['cliente'], $_POST['tipoProdutoRelatorio'],$_POST['dataInicial'], $_POST['dataFinal'],$_POST['produtoSelecionado'],$_POST['lojaBusca'],$_POST['devolvidas']);
 						break;
 
 					case 'gerarRelatorioPecasCliente':
@@ -212,6 +208,14 @@
 						$retorno = $Venda->visualizarNota($_POST['chave']);
 						break;
 
+					case 'salvarOrcamento':
+						$retorno = $Venda->salvarOrcamento();
+						break;
+					
+					case 'carregarOrcamento':
+						$retorno = $Venda->carregarOrcamento($_POST['orcamentoId']);
+						break;
+
 					case 'listarPedidos':
 						
 						$lojaSelecionada = false;
@@ -288,7 +292,7 @@
 													
 						
 					case 'adicionarItensVendaSessao':
-						$retorno = $Venda->adicionarItensVendaSessao($_POST['nomeProduto'],$_POST['nomeRealProduto'],$_POST['quantidadeProduto'],$_POST['pesoTotal'],$_POST['valorUnitarioProduto'], $_POST['valorAtacado'], $_POST['valorVarejo'], $_POST['modeloProduto']);
+						$retorno = $Venda->adicionarItensVendaSessao($_POST['nomeProduto'],$_POST['nomeRealProduto'],$_POST['quantidadeProduto'],$_POST['pesoTotal'],$_POST['valorUnitarioProduto'], $_POST['valorAtacado'], $_POST['valorVarejo']);
 						break;
 
 					case 'listarItensVendaSessao':

@@ -1140,6 +1140,8 @@ $(document).ready(function(){
 
       $( "#MenuOpcaoPasso02" ).click(function() {
           $('#sucessoInclusaoItemVenda').hide();
+          $('#erroOrcamento').hide();
+          $('#sucessoOrcamento').hide();
           $('#erroInclusaoItemVenda').hide();
           $("#botaoPerfil").prop("disabled",false);
           $('#sucessoAlteracaoCreditoCliente').hide();
@@ -1387,11 +1389,9 @@ $(document).ready(function(){
                 $('#quantidadeProduto').val(1);
                 $('#valorUnitarioProduto').val('');
 
-                //muda a seleção do produto para brancos
-                $("#tipoProduto").val($("#tipoProduto option:first-child").val());
-                $('#modeloProduto option[value="0"]').attr({ selected : "selected" });
+                $('#nomeProduto').val(''); // Select the option with a value of '1'
+                $('#nomeProduto').trigger('change'); // Notify any JS components that the value changed // clear out values selected
 
-                $("#nomeProduto").val($("#tipoProduto option:first-child").val());
                 //localizarProdutoPorTipo();
                 atualizaItensVenda();
 
@@ -1402,6 +1402,8 @@ $(document).ready(function(){
                 $('#sucessoInclusaoItemVenda').hide();
                 $('#erroInclusaoItemVenda').html("<strong>Erro: </strong>"+retorno.resultado);
                 $('#erroInclusaoItemVenda').fadeIn();
+                $('#erroOrcamento').hide();
+                $('#sucessoOrcamento').hide();
             }
 
           }
@@ -1538,29 +1540,9 @@ $(document).ready(function(){
             $('#quantidadeParcelas').val('1');
       });      
 
-
-
-      // Chama sempre que o tipo do produto for alterado
-      $('#modeloProduto').on('change', function(){
-
-        if($("#tipoProduto").val() == '')
-          return false;
-        else 
-          localizarProdutoPorTipo();
-
-        return false;
-      });
-
-
       $('#lojaBuscaPeca').on('change', function(){
         var id = $('#lojaBuscaPeca').val();
         alterarLojaBusca(id);
-        return false;
-      });
-
-      // Chama sempre que o tipo do produto for alterado
-      $('#tipoProduto').on('change', function(){
-        localizarProdutoPorTipo();
         return false;
       });
       
@@ -1663,7 +1645,6 @@ $(document).ready(function(){
         //Pega os dados do formulário
         var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&novoCredito=' + $("#valorCreditoCliente").val();
 
-
         $.ajax({
           dataType: "json",
           type: "POST",
@@ -1695,7 +1676,6 @@ $(document).ready(function(){
           }
         });
         return false;
-
       });
 
       // Chama sempre que o nome do produto for alterado
@@ -1742,49 +1722,113 @@ $(document).ready(function(){
 
       });
 
-   
-
-
-
-
 });
 
 
 
 	function prosseguirVendaClienteDuplicado()
 	{        
-        var nomeMetodo 		= "localizarClientePorId";
-      	var nomeController 	= "Venda";
-      	var idCliente 		= $('#id_cliente').val();
+      var nomeMetodo 		= "localizarClientePorId";
+      var nomeController 	= "Venda";
+      var idCliente 		= $('#id_cliente').val();
 
-        //Monta os dados de entrada do metodo
-        var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController +'&idCliente=' + idCliente;
+      //Monta os dados de entrada do metodo
+      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController +'&idCliente=' + idCliente;
 
-        $.ajax({
-          dataType: "json",
-          type: "POST",
-          url: "transferencia/transferencia.php",
-          data: dados,
-          beforeSend: function() {
-            $('#load02').show();
-          },          
-          complete: function(){
-            $('#load02').hide();
-          },
-          success: function( retorno ){
+      $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: "transferencia/transferencia.php",
+        data: dados,
+        beforeSend: function() {
+          $('#load02').show();
+        },          
+        complete: function(){
+          $('#load02').hide();
+        },
+        success: function( retorno ){
 
-          	//Se o resultado for ok, verifica os demais itens
-            if(retorno.resultado == "sucesso")
-            {
-            	trasferenciaPasso01paraPasso02(retorno.dados);
-            }
+          //Se o resultado for ok, verifica os demais itens
+          if(retorno.resultado == "sucesso")
+          {
+            trasferenciaPasso01paraPasso02(retorno.dados);
           }
-        });		        
+        }
+      });		        
 	}
 
-      
+  function salvarOrcamento()
+	{        
+      var nomeMetodo 		= "salvarOrcamento";
+      var nomeController 	= "Venda";
 
-    function inserirValorCaixa($mov, $desc){
+      //Monta os dados de entrada do metodo
+      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController;
+
+      $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: "transferencia/transferencia.php",
+        data: dados,
+        success: function( retorno ){
+
+          //Se o resultado for ok, verifica os demais itens
+          if(retorno.resultado == "sucesso")
+          {
+            $('#sucessoOrcamento').html("<strong>Sucesso: </strong> Orçamento salvo com sucesso");
+            $('#sucessoOrcamento').fadeIn();
+          }
+          else {
+            // Apresenta a mensagem de erro
+            $('#erroOrcamento').html("<strong>Erro: </strong>"+retorno.dados);
+            $('#erroOrcamento').fadeIn();
+          }
+        }
+      });		        
+  }
+  
+  function carregarOrcamento()
+	{        
+      var nomeMetodo 		= "carregarOrcamento";
+      var nomeController 	= "Venda";
+
+      $('#erroOrcamento').hide();
+      $('#sucessoOrcamento').hide();
+
+      if (isNaN($('#orcamentoId').val()) || $('#orcamentoId').val() == '')
+      {
+        $('#erroOrcamento').html("<strong>Erro: </strong> Formato Inválido");
+        $('#erroOrcamento').fadeIn();
+        return;
+      }
+      //Monta os dados de entrada do metodo
+      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&orcamentoId=' + $('#orcamentoId').val();
+
+      $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: "transferencia/transferencia.php",
+        data: dados,
+        success: function( retorno ){
+
+          //Se o resultado for ok, verifica os demais itens
+          if(retorno.resultado == "sucesso")
+          {
+            atualizaItensVenda();
+            $('#sucessoOrcamento').html("<strong>Sucesso: </strong> Orçamento carregado com sucesso");
+            $('#sucessoOrcamento').fadeIn();
+            $("#cabecalhoOrcamento").html("<center>Orçamento - "+$('#orcamentoId').val()+"</center>")
+          }
+          else {
+            // Apresenta a mensagem de erro
+            $('#erroOrcamento').html("<strong>Erro: </strong>"+retorno.dados);
+            $('#erroOrcamento').fadeIn();
+          }
+        }
+      });		        
+	}
+
+  function inserirValorCaixa($mov, $desc){
 
       if($desc == '' || $desc == ' '){
         $.confirm({
@@ -2106,14 +2150,6 @@ $(document).ready(function(){
         vendedorAtual = $('#selecaoVendedor').val();
 		}
 
-
-    //Montagem da listagem de tipos de produtos
-    $('#tipoProduto').empty();
-    $('#tipoProduto').append("<option value=''></option>");
-    for (i = 0; i < dados[1].length; i++) {
-        $('#tipoProduto').append('<option value = '+ dados[1][i].id_tipo_produto +'>' + dados[1][i].nome_tipo_produto + '</option>');
-    }    
-
     //Montagem da listagem de modelos de produtos
     $('#modeloProduto').empty();
     $('#modeloProduto').append("<option value='0'></option>");
@@ -2184,6 +2220,9 @@ $(document).ready(function(){
 
 
     function atualizaItensVenda(){
+
+        $('#erroOrcamento').hide();
+        $('#sucessoOrcamento').hide();
 
         var nomeMetodo        = "listarItensVendaSessao";
         var nomeController    = "Venda";
@@ -3002,13 +3041,7 @@ function montaRecibo(dados)
         //Busca todos os nomes dos produtos relacionados ao tipo selecionado
         var nomeMetodo    = "localizarProdutoPorTipo";
         var nomeController  = "Venda";
-    
-        //Pega os dados do formulário
-        if($("#tipoProduto").val() != '')
-          var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&idTipoProduto=' + $("#tipoProduto").val() + '&perfilCliente=' + $("#perfilCliente").val() + '&modeloProduto=' + $('#modeloProduto option:selected').val();
-        else 
-          var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&idTipoProduto=0&perfilCliente=' + $("#perfilCliente").val() + '&modeloProduto=' + $('#modeloProduto option:selected').val();
-
+  
 
         $.ajax({
           dataType: "json",
@@ -4116,38 +4149,34 @@ function montaRecibo(dados)
 
   function prosseguirRegistroFuncionarioDuplicado()
   {
+      var nomeMetodo     = "localizarFuncionarioPorId";
+      var nomeController = "Consignado";
+      var idFuncionario  = $('#id_funcionario').val();
 
-        var nomeMetodo     = "localizarFuncionarioPorId";
-        var nomeController = "Consignado";
-        var idFuncionario  = $('#id_funcionario').val();
+      //Monta os dados de entrada do metodo
+      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController +'&idFuncionario=' + idFuncionario;
 
-        //Monta os dados de entrada do metodo
-        var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController +'&idFuncionario=' + idFuncionario;
+      $.ajax({
+        dataType: "json",
+        type: "POST",
+        url: "transferencia/transferencia.php",
+        data: dados,
+        beforeSend: function() {
+          $('#load02').show();
+        },          
+        complete: function(){
+          $('#load02').hide();
+        },
+        success: function( retorno ){
 
-        $.ajax({
-          dataType: "json",
-          type: "POST",
-          url: "transferencia/transferencia.php",
-          data: dados,
-          beforeSend: function() {
-            $('#load02').show();
-          },          
-         complete: function(){
-            $('#load02').hide();
-          },
-          success: function( retorno ){
-
-            //Se o resultado for ok, verifica os demais itens
-            if(retorno.resultado == "sucesso")
-            {
-              trasferenciaSelecaoProdutosConsignado(retorno.dados);
-            }
+          //Se o resultado for ok, verifica os demais itens
+          if(retorno.resultado == "sucesso")
+          {
+            trasferenciaSelecaoProdutosConsignado(retorno.dados);
           }
-        });           
-
-  }    
-
-
+        }
+      });           
+    }    
 
 
     function trasferenciaSelecaoProdutosConsignado(dados)
@@ -4155,13 +4184,6 @@ function montaRecibo(dados)
 
     //buscar informações do controller para montar o passo 02 
     $('#identificacaoCliente').html("<center><br><p>Funcionário <b>"+dados[0].nome+"</b>.</p></center>");    
-
-    //Montagem da listagem de tipos de produtos
-    $('#tipoProduto').empty();
-    $('#tipoProduto').append("<option value=''></option>");
-    for (i = 0; i < dados[1].length; i++) {
-        $('#tipoProduto').append('<option value = '+ dados[1][i].id_tipo_produto +'>' + dados[1][i].nome_tipo_produto + '</option>');
-    }    
 
     //Montagem da listagem de modelos de produtos
     $('#modeloProduto').empty();

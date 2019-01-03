@@ -222,6 +222,7 @@ class Venda {
 		$_SESSION['usuario']['cliente']['idCliente']       = $dados[0]['id_cliente'];
 		$_SESSION['usuario']['cliente']['idPerfilCliente'] = $dados[0]['id_perfil'];
 		$_SESSION['usuario']['cliente']['valorCredito']    = $dados[0]['valor_credito'];
+		$_SESSION['usuario']['cliente']['idOrcamento']       = 0;
 		$_SESSION['usuario']['cliente']['indicadorConsignado'] = 'N';
 
 		//Formata o valor do crédito para apresentação na tela
@@ -342,6 +343,7 @@ class Venda {
 					$_SESSION['usuario']['cliente']['idCliente']       = $clientesLocalizados[0]['id_cliente'];
 					$_SESSION['usuario']['cliente']['idPerfilCliente'] = $clientesLocalizados[0]['id_perfil'];
 					$_SESSION['usuario']['cliente']['valorCredito']    = $clientesLocalizados[0]['valor_credito'];
+					$_SESSION['usuario']['cliente']['idOrcamento']       = 0;
 
 					$_SESSION['usuario']['cliente']['indicadorConsignado'] = 'N';
 			}			
@@ -714,9 +716,83 @@ class Venda {
 		return $retorno;		
 	}
 
+	function salvarOrcamento()
+	{
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+		
+		if( count($_SESSION['usuario']['listaProdutos']) == 0 )
+			return array('resultado' => 'erro', 'dados' => "Nenhum produto inserido");
+		
+
+		//Percorre os itens da venda na sessão
+		$dados = array();
+
+		for($i=0; $i < count($_SESSION['usuario']['listaProdutos']); $i++)
+		{
+			$item = array();
+
+			$item['id_venda']			= 0;
+			$item['id_produto']		    = $_SESSION['usuario']['listaProdutos'][$i]['idProduto'];
+			$item['quantidade']			= $_SESSION['usuario']['listaProdutos'][$i]['quantidadeProduto'];
+			$item['preco']				= $_SESSION['usuario']['listaProdutos'][$i]['valor'];
+						
+			//Formata os valores para apresentação ao usuário
+			$item['preco']      = number_format($item['preco'], 2, ",", ".");			
+			$item['preco']      = str_replace('.', '', $item['preco']);		
+			$item['preco']      = str_replace(',', '.', $item['preco']);			
+			
+			$dados[] = $item;
+		}	
+
+		$model_itens_de_venda   = new Model_itens_de_venda($this->conexao);
+		$retorno = $model_itens_de_venda -> inserirProdutosOrcamento($dados, $_SESSION['usuario']['cliente']['idCliente'], $_SESSION['usuario']['cliente']['idOrcamento']);
+
+		if($retorno['retorno'] == 'sucesso')
+			$_SESSION['usuario']['cliente']['idOrcamento'] = $retorno['dados'];
+
+		return array("resultado" => $retorno['retorno'], "descricao" => $retorno['dados']);
+
+	}
 
 
-	function adicionarItensVendaSessao($idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo, $modelo)
+	function carregarOrcamento($orcamentoId)
+	{
+		if(!isset($_SESSION)){
+			session_start();
+		}
+
+		if($orcamentoId == null || $orcamentoId == "" || $orcamentoId == 0){
+			return array("resultado" => $retorno['retorno'], "descricao" => $retorno['dados']);
+		}
+
+		$model_itens_de_venda   = new Model_itens_de_venda($this->conexao);
+		$retorno = $model_itens_de_venda -> carregarOrcamento($orcamentoId);
+
+		if($retorno['indicador_erro'] != 0)
+			return $retorno;
+
+		$_SESSION['usuario']['cliente']['idOrcamento'] = $orcamentoId;
+		$_SESSION['usuario']['listaProdutos'] = array();
+
+		for	($i = 0; $i < count($retorno['dados']); $i++ ){
+
+			$this->adicionarItensVendaSessao(
+				$retorno['dados'][$i]['id_produto'], 
+				$retorno['dados'][$i]['descricao'],
+				$retorno['dados'][$i]['quantidade'],
+				$retorno['dados'][$i]['peso'],
+				$retorno['dados'][$i]['preco'],
+				$retorno['dados'][$i]['preco_atacado'],
+				$retorno['dados'][$i]['preco_varejo']
+			);
+		}
+
+		return array("resultado" => "sucesso");
+	}
+
+	function adicionarItensVendaSessao($idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo)
 	{
 		
 		$model_produto       = new Model_Produto($this->conexao);
@@ -743,7 +819,8 @@ class Venda {
 		//Busca o peso do produto - unidade
 		$pesoTotal      = $model_produto->buscarPesoProduto($idProduto);
 
-		session_start();
+		if(!isset($_SESSION))
+			session_start();
 		$quantidadeTotal 	= 0;
 		$encontrouProduto 	= -1;		
 
@@ -787,10 +864,8 @@ class Venda {
 			$_SESSION['usuario']['listaProdutos'][] = array('idProduto' => $idProduto, 'nomeProduto' => $nomeProduto, 'quantidadeProduto' => $quantidadeProduto, 'pesoTotal' => $pesoTotal, 'valor' => $valor, 'valorAtacado' => $valorAtacado, 'valorVarejo' => $valorVarejo);
 		}
 
-
 		// Redefine o perfil do cliente, de acordo com os itens da venda
 		$this->redefinePerfilCliente();
-
 
 		$retorno 	= array('resultado' => 'sucesso');
 		return $retorno;
@@ -971,7 +1046,7 @@ class Venda {
 
 		$gravarItensVenda = $this->gravarItensVenda($gravacaoVenda['dados']['id_venda'], true);
 		if ($gravarItensVenda['retorno'] == 'erro')
-			return array('resultado' => 'erro', 'descricao' => $gravarItensVenda['descricao']);		
+			return array('resultado' => 'erro', 'descricao' => $gravarItensVenda['descricao']);
 
 		//Inclui os produtos da venda
 		$gravacaoVenda['dados']['itens_venda'] = $gravarItensVenda['dados'];

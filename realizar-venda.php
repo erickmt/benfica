@@ -314,7 +314,7 @@
             if(e.which == 13){ $('#botaoIncluirItemVenda').click();
                 $('#nomeProduto').val(''); // Select the option with a value of '1'
                 $('#nomeProduto').trigger('change'); // Notify any JS components that the value changed // clear out values selected
-                $('#nomeProduto').select2('open');
+                //$('#nomeProduto').select2('open');
             }
         });
 

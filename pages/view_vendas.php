@@ -180,22 +180,10 @@
                                  <div class="panel-body">
                                     <div class="row">
                                        <form role="form" id="inclusaoProdutosVenda" method="post">
-                                          <div class="col-lg-9">
+                                       <div class="col-lg-12">
                                              <div class="form-group">
-                                                <label>Tipo Produto:</label>
-                                                <select class="form-control" style="width: 100%" name="tipoProduto" id="tipoProduto">
-                                                   <option value='' ></option>
-                                                   <option value='M' >Blusa</option>
-                                                   <option value='F' >Calca</option>
-                                                </select>
-                                             </div>
-                                          </div>
-                                          <div class="col-lg-3">
-                                             <div class="form-group">
-                                                <label>Modelo:</label>
-                                                <select class="form-control" style="width: 100%" name="modeloProduto" id="modeloProduto">
-                                                   <option value=""></option>
-                                                </select>
+                                                <label>Código de barras:</label>
+                                                <input class="form-control" style="width: 100%" name="codigoBarra" id="codigoBarra">
                                              </div>
                                           </div>
                                           <div class="col-lg-12">
@@ -358,18 +346,59 @@
                                     <!-- /.table-responsive -->
                                  </div>
                               </div>
-							  <div class="panel panel-primary">
+                           </div>
+                           <div class="col-lg-6">
+                              <div class="panel panel-primary">
                                  <div class="panel-heading">
                                     <center>Responsável Venda</center>
                                  </div>
                                  <div class="panel-body">
                                     <div class="form-group">
+                                       <label>Vendedor:</label>
                                        <select class="form-control" id="selecaoVendedor">
-                                          <!-- Options montados de acordo com o retorno do controller - js -->
                                        </select>
                                     </div>
                                  </div>
                               </div>
+                           </div>
+                           
+                           <div class="col-lg-6">
+                              <div class="panel panel-primary">
+                                 <div class="panel-heading" id="cabecalhoOrcamento">
+                                    <center>Orçamento</center>
+                                 </div>
+                                 <div class="panel-body">
+                                    <div class="row">
+                                       <div class="col-lg-6">
+                                          <div class="form-group">
+                                             <label>Salvar:</label>
+                                             <button class="btn btn-primary btn-block" onclick="salvarOrcamento()"> Salvar </button>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-6">
+                                          <div class="form-group">
+                                             <label>Carregar:</label>
+                                             <div class="input-group">
+                                                <input type="text" class="form-control" name="orcamentoId" id="orcamentoId" placeholder="Orçamento" required>
+                                                <span class="input-group-btn">
+                                                   <button class="btn btn-default" onclick="buscarOrcamento()" type="button"><i class="fa fa-search"></i></button>
+                                                </span>
+                                                <span class="input-group-btn">
+                                                   <button class="btn btn-default" onclick="carregarOrcamento()" type="button"><i class="fa fa-mouse-pointer"></i></button>
+                                                </span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-12">
+                                          <div class="alert alert-danger" id="erroOrcamento" style="display: none;"></div>
+                                          <div class="alert alert-success" id="sucessoOrcamento" style="display: none;"></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-lg-12">
                               <button type="button" class="btn btn-success btn-block" onclick="trasferenciaPasso02paraPasso03()" >Prosseguir Venda</button><br>
                               <div class="alert alert-danger" id="erroEvolucaoPasso03" style="display: none;"></div>
                            </div>

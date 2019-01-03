@@ -51,7 +51,108 @@ class Model_itens_de_venda {
         }
 
         return true;       
-  }  
+   }
+
+   function carregarOrcamento($orcamentoId){
+      $sql = "select 
+               o.id_produto id_produto, 
+               p.descricao descricao, 
+               o.quantidade quantidade, 
+               p.peso peso,
+               REPLACE(o.preco, '.', ',') preco, 
+               REPLACE(p.preco_varejo, '.', ',') preco_varejo, 
+               REPLACE(p.preco_atacado, '.', ',') preco_atacado
+         from orcamento o 
+            inner join produto p 
+            using (id_produto) 
+         where id_orcamento = ".$orcamentoId;
+
+      $resultado = $this->conexao->query($sql); 
+
+      if (!$resultado)
+      return array(
+          'indicador_erro' => 1,
+          'dados' => "Erro ao buscar orçamento"
+      );
+  
+      //Se não retornar nenhuma linha
+      if (mysqli_num_rows($resultado) == 0)
+            return array(
+               'indicador_erro' => 2,
+               'dados' => "Orçamento não econtrado"
+         );
+
+        $dadosItens  = array();
+        $itens_venda = array();
+        while ($linha = mysqli_fetch_array($resultado)) {
+            $dadosItens['id_produto']   = $linha['id_produto'];
+            $dadosItens['descricao']    = $linha['descricao'];
+            $dadosItens['quantidade']  = $linha['quantidade'];
+            $dadosItens['peso']    = $linha['peso'];
+            $dadosItens['preco'] = $linha['preco'];
+            $dadosItens['preco_varejo']    = $linha['preco_varejo'];
+            $dadosItens['preco_atacado']    = $linha['preco_atacado'];
+            $itens_venda[]               = $dadosItens;
+        }
+
+        return array(
+         'indicador_erro' => 0,
+         'dados' => $itens_venda
+        );
+   }
+
+   function inserirProdutosOrcamento($dados, $cliente, $orcamento){
+
+      if($orcamento == 0)
+         $sql       = "select max(id_orcamento) + 1 as ultimo from orcamento;";
+      else 
+         $sql       = "delete from orcamento where id_orcamento = ".$orcamento.";";
+
+      $ultimoOrcamento = $orcamento;
+
+      //Executa a query
+      $resultado = $this->conexao->query($sql); 
+      
+      if($orcamento == 0){
+         if (mysqli_num_rows($resultado) == 0)
+               return array("retorno" => "erro", "dados" => "Erro ao buscar última faturamento");
+         else 
+         {
+            $linha = mysqli_fetch_array($resultado);
+            $ultimoOrcamento = $linha['ultimo'];
+         }
+      }
+      //Grava todos os itens do array na tabela. Interrompe se encontrar algum erro
+      for($i=0; $i< count($dados); $i++)
+    	{
+
+          //Monta e executa a query
+          $sql       = " 
+				insert into orcamento (
+               id_cliente,
+					id_orcamento, 
+               id_produto,
+               quantidade, 
+               preco,
+               data)
+				values 
+					(".$cliente.",".
+					   $ultimoOrcamento.",".
+					   $dados[$i]['id_produto'].",".
+					   $dados[$i]['quantidade'].",".
+					   $dados[$i]['preco'].",
+					   curdate());";
+
+          //Executa a query
+          $resultado = $this->conexao->query($sql);
+
+          //Retorna o dado quando não há erro
+          if(!$resultado)
+            return array("retorno" => "erro", "dados" => "Erro ao salvar produto");
+        }
+
+        return array("retorno" => "sucesso", "dados" => $ultimoOrcamento);  
+   }
 
 }
 
