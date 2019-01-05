@@ -1307,7 +1307,7 @@ $(document).ready(function(){
         $('#erroInclusaoItemVenda').hide();
 
         /* Validações iniciais do produto a ser incluído */
-        if($('#nomeProduto option:selected').val() == 0 || $('#nomeProduto option:selected').val() == '')
+        if($('#codigoBarra').val() == '' && ($('#nomeProduto option:selected').val() == 0 || $('#nomeProduto option:selected').val() == ''))
         {
             // inclui a mensagem de erro
             $('#erroInclusaoItemVenda').html("<strong>Erro: </strong> Necessário infomar o produto.");
@@ -1317,7 +1317,7 @@ $(document).ready(function(){
             return false;
         }
 
-        if($('#valorUnitarioProduto').val().replace( /\s/g, '' ) == '' || $('#valorUnitarioProduto').val() == '0.0')
+        if($('#codigoBarra').val() == '' && ($('#valorUnitarioProduto').val().replace( /\s/g, '' ) == '' || $('#valorUnitarioProduto').val() == '0.0'))
         {
             // inclui a mensagem de erro
             $('#erroInclusaoItemVenda').html("<strong>Erro: </strong> Necessário infomar o valor unitário do produto.");
@@ -1327,7 +1327,7 @@ $(document).ready(function(){
         }        
 
         // Se não houver vírgula, apresenta uma mensagem de erro
-        if($('#valorUnitarioProduto').val().indexOf(",") == -1)
+        if($('#codigoBarra').val() == '' && $('#valorUnitarioProduto').val().indexOf(",") == -1)
         {
             // inclui a mensagem de erro
             $('#erroInclusaoItemVenda').html("<strong>Erro: </strong> Formato incorreto do valor unitário do produto.");
@@ -1336,21 +1336,21 @@ $(document).ready(function(){
             return false;
         }                        
 
-
-        // Não permite pequenas alterações de valores do produto
-        var novo_valor     = $('#valorUnitarioProduto').val().replace(".", "");
-        novo_valor         = novo_valor.replace(",", ".");
-        var valor_original = $('#valorUnitarioProduto').attr('valorOriginal').replace(".", "");        
-        valor_original     = valor_original.replace(",", ".");
-        var valor_limite   = (parseFloat(valor_original) + parseFloat(2)).toFixed(2); 
-        if(novo_valor < valor_limite && novo_valor != valor_original && valor_original != 0)
-        {
-            $('#sucessoInclusaoItemVenda').hide();
-            $('#erroInclusaoItemVenda').html("<strong>Erro: </strong> Não é permitido alterar o preço do produto para um valor abaixo de R$ "+valor_limite+", uma vez que seu valor original é R$ "+$('#valorUnitarioProduto').attr('valorOriginal')+".");
-            $('#erroInclusaoItemVenda').fadeIn();
-            return false;
-        }                                
-
+        if($('#codigoBarra').val() == ''){
+          // Não permite pequenas alterações de valores do produto
+          var novo_valor     = $('#valorUnitarioProduto').val().replace(".", "");
+          novo_valor         = novo_valor.replace(",", ".");
+          var valor_original = $('#valorUnitarioProduto').attr('valorOriginal').replace(".", "");        
+          valor_original     = valor_original.replace(",", ".");
+          var valor_limite   = (parseFloat(valor_original) + parseFloat(2)).toFixed(2); 
+          if(novo_valor < valor_limite && novo_valor != valor_original && valor_original != 0)
+          {
+              $('#sucessoInclusaoItemVenda').hide();
+              $('#erroInclusaoItemVenda').html("<strong>Erro: </strong> Não é permitido alterar o preço do produto para um valor abaixo de R$ "+valor_limite+", uma vez que seu valor original é R$ "+$('#valorUnitarioProduto').attr('valorOriginal')+".");
+              $('#erroInclusaoItemVenda').fadeIn();
+              return false;
+          }                                
+        }
         if($('#quantidadeProduto').val().replace( /\s/g, '' ) == '')
         {
             // inclui a mensagem de erro
@@ -1383,7 +1383,7 @@ $(document).ready(function(){
             //Se o resultado for ok, verifica os demais itens
             if(retorno.resultado == 'sucesso')
             {
-                $('#sucessoInclusaoItemVenda').html($('#nomeProduto option:selected').text()+" incluído com sucesso.");
+                $('#sucessoInclusaoItemVenda').html(retorno.nomeProduto +" incluído com sucesso.");
                 $('#sucessoInclusaoItemVenda').fadeIn();
                 $('#erroInclusaoItemVenda').hide();
                 $('#quantidadeProduto').val(1);

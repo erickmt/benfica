@@ -778,6 +778,7 @@ class Venda {
 		for	($i = 0; $i < count($retorno['dados']); $i++ ){
 
 			$this->adicionarItensVendaSessao(
+				null,
 				$retorno['dados'][$i]['id_produto'], 
 				$retorno['dados'][$i]['descricao'],
 				$retorno['dados'][$i]['quantidade'],
@@ -800,10 +801,29 @@ class Venda {
 		return $retorno;
 	}
 
-	function adicionarItensVendaSessao($idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo, $orcamento = false)
+	function adicionarItensVendaSessao($codigoBarra = false, $idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo, $orcamento = false)
 	{
-		
+		if(!isset($_SESSION))
+			session_start();
+
 		$model_produto       = new Model_Produto($this->conexao);
+
+		if($codigoBarra != false)
+		{
+			$retorno = $model_produto->buscarIdProduto($codigoBarra);
+			if($retorno['resultado'] == 'erro')
+				return $retorno;
+
+			$idProduto = $retorno['dados']['id_produto'];
+			$valorAtacado = $retorno['dados']['preco_atacado'];
+			$valorVarejo = $retorno['dados']['preco_varejo'];
+			$nomeProduto = $retorno['dados']['descricao'];
+
+			if($_SESSION['usuario']['cliente']['idPerfilCliente'] = 1)
+				$valor = $valorVarejo;
+			else
+				$valor = $valorAtacado;
+		}
 
 		// Retorna false se não encontrar a quantidade solicitada do produto em estoque
 		// Pendente: remover o comentáiro das linhas abaixo... somente para facilitar os testes
@@ -823,12 +843,9 @@ class Venda {
         $valorVarejo 	= str_replace('.', '', $valorVarejo);
         $valorVarejo 	= str_replace(',', '.', $valorVarejo);		      
 
-
 		//Busca o peso do produto - unidade
 		$pesoTotal      = $model_produto->buscarPesoProduto($idProduto);
 
-		if(!isset($_SESSION))
-			session_start();
 		$quantidadeTotal 	= 0;
 		$encontrouProduto 	= -1;		
 
@@ -875,7 +892,7 @@ class Venda {
 		// Redefine o perfil do cliente, de acordo com os itens da venda
 		$this->redefinePerfilCliente();
 
-		$retorno 	= array('resultado' => 'sucesso');
+		$retorno 	= array('resultado' => 'sucesso', 'nomeProduto' => $nomeProduto);
 		return $retorno;
 	}
 

@@ -183,7 +183,7 @@
                                        <div class="col-lg-12">
                                              <div class="form-group">
                                                 <label>Código de barras:</label>
-                                                <input class="form-control" style="width: 100%" name="codigoBarra" id="codigoBarra">
+                                                <input class="form-control" style="width: 100%" name="codigoBarra" id="codigoBarra" disabled>
                                              </div>
                                           </div>
                                           <div class="col-lg-12">

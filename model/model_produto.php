@@ -14,6 +14,27 @@ class Model_Produto {
         $this->conexao = $conexao;
     }
 
+    function buscarIdProduto($codigoBarra){
+        $sql = "select id_produto, descricao, replace(preco_varejo, '.',',') preco_varejo, replace(preco_atacado, '.',',') preco_atacado from produto where codigo_barra like '$codigoBarra'";
+        
+        $retorno = $this->conexao->query($sql);
+
+        if(!$retorno)
+          return array("resultado" => "erro", "dados" => "Erro ao buscar produto");
+        
+        if(mysqli_num_rows($retorno) == 0)
+          return array("resultado" => "erro", "dados" => "Nenhum produto encontrado com este código de barras");
+     
+        $linha = mysqli_fetch_array($retorno);
+        $dados = array('id_produto' => $linha['id_produto'], 
+                         'descricao' => $linha['descricao'], 
+                         'preco_varejo' => $linha['preco_varejo'], 
+                         'preco_atacado' => $linha['preco_atacado']);
+
+        return array("resultado" => "sucesso", "dados" => $dados);
+
+    }
+
     function devolveConsignado($produto, $quantidade){
         $sql = "UPDATE itens_de_venda set quantidade_devolvida = (quantidade_devolvida + '$quantidade') where id = '$produto'";
 

@@ -313,6 +313,7 @@
         $(document).keypress(function(e) {
             if(e.which == 13){ 
                 $('#botaoIncluirItemVenda').click();
+                $('#codigoBarra').val(''); // Select the option with a value of '1'
                 $('#nomeProduto').val(''); // Select the option with a value of '1'
                 $('#nomeProduto').trigger('change'); // Notify any JS components that the value changed // clear out values selected
                 $('#nomeProduto').select2('open');

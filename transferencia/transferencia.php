@@ -293,10 +293,9 @@
 					case 'excluirFormaPagamento':
 						$retorno = $Venda->excluirFormaPagamento($_POST['idFormaPagamento']);
 						break;
-													
 						
 					case 'adicionarItensVendaSessao':
-						$retorno = $Venda->adicionarItensVendaSessao($_POST['nomeProduto'],$_POST['nomeRealProduto'],$_POST['quantidadeProduto'],$_POST['pesoTotal'],$_POST['valorUnitarioProduto'], $_POST['valorAtacado'], $_POST['valorVarejo']);
+						$retorno = $Venda->adicionarItensVendaSessao($_POST['codigoBarra'], $_POST['nomeProduto'],$_POST['nomeRealProduto'],$_POST['quantidadeProduto'],$_POST['pesoTotal'],$_POST['valorUnitarioProduto'], $_POST['valorAtacado'], $_POST['valorVarejo']);
 						break;
 
 					case 'listarItensVendaSessao':
