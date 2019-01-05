@@ -216,6 +216,10 @@
 						$retorno = $Venda->carregarOrcamento($_POST['orcamentoId']);
 						break;
 
+					case 'buscarOrcamento':
+						$retorno = $Venda->buscarOrcamento($_POST['orcamentoCliente'],$_POST['orcamentoData']);
+						break;
+
 					case 'listarPedidos':
 						
 						$lojaSelecionada = false;

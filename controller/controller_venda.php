@@ -752,10 +752,9 @@ class Venda {
 		if($retorno['retorno'] == 'sucesso')
 			$_SESSION['usuario']['cliente']['idOrcamento'] = $retorno['dados'];
 
-		return array("resultado" => $retorno['retorno'], "descricao" => $retorno['dados']);
+		return $retorno;
 
 	}
-
 
 	function carregarOrcamento($orcamentoId)
 	{
@@ -785,14 +784,23 @@ class Venda {
 				$retorno['dados'][$i]['peso'],
 				$retorno['dados'][$i]['preco'],
 				$retorno['dados'][$i]['preco_atacado'],
-				$retorno['dados'][$i]['preco_varejo']
+				$retorno['dados'][$i]['preco_varejo'],
+				true
 			);
 		}
 
 		return array("resultado" => "sucesso");
 	}
 
-	function adicionarItensVendaSessao($idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo)
+	function buscarOrcamento($cliente = false, $data = false)
+	{
+		$model_itens_de_venda   = new Model_itens_de_venda($this->conexao);
+		$retorno = $model_itens_de_venda -> buscarOrcamento($cliente, $data);
+
+		return $retorno;
+	}
+
+	function adicionarItensVendaSessao($idProduto, $nomeProduto, $quantidadeProduto, $pesoTotal, $valor, $valorAtacado, $valorVarejo, $orcamento = false)
 	{
 		
 		$model_produto       = new Model_Produto($this->conexao);
@@ -800,7 +808,7 @@ class Venda {
 		// Retorna false se não encontrar a quantidade solicitada do produto em estoque
 		// Pendente: remover o comentáiro das linhas abaixo... somente para facilitar os testes
 		
-		if(!$model_produto->verificarQuantidadeEmEstoque($idProduto, $quantidadeProduto))
+		if(!$orcamento && !$model_produto->verificarQuantidadeEmEstoque($idProduto, $quantidadeProduto))
 		{
 			$resultado  = 'Quantidade desejada do produto indisponível no estoque.';
 			$retorno 	= array('resultado' => $resultado);

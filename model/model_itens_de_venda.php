@@ -52,6 +52,39 @@ class Model_itens_de_venda {
 
         return true;       
    }
+	function buscarOrcamento($cliente, $data)
+   {
+      $sql = "select o.id_orcamento id_orcamento,
+                  c.nome cliente,
+                  date_format(o.data, '%d/%m/%Y') data,
+                  sum(preco) valor
+               from orcamento o 
+               inner join cliente c using (id_cliente) where 1 = 1 ";
+      
+      if(isset($cliente) && !empty($cliente)){
+         $sql = $sql." and c.nome like '%".$cliente."%' ";
+      }
+      if(isset($data) && !empty($data)){
+         $sql = $sql." and date_format(o.data, '%Y-%m-%d') like '%".$data."%' ";
+      }
+      
+      $sql = $sql." group by 1 order by 1 desc";
+
+      $retorno = $this->conexao->query($sql);
+
+      if(!$retorno)
+         return array("resultado" => "erro", "dados" => "Erro ao buscar lista de orçamentos");
+
+      if(mysqli_num_rows($retorno) == 0)
+         return array("resultado" => "erro", "dados" => "Nenhum resultado encontrado para a pesquisa");
+      
+      $orcamentos = array();
+      while($linha = mysqli_fetch_array($retorno)){
+         $orcamentos[] = $linha;
+      }
+
+      return array("resultado" => "sucesso", "dados" => $orcamentos);
+   }
 
    function carregarOrcamento($orcamentoId){
       $sql = "select 

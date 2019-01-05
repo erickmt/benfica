@@ -1721,7 +1721,6 @@ $(document).ready(function(){
         return false;
 
       });
-
 });
 
 
@@ -1773,9 +1772,10 @@ $(document).ready(function(){
         success: function( retorno ){
 
           //Se o resultado for ok, verifica os demais itens
-          if(retorno.resultado == "sucesso")
+          if(retorno.retorno == "sucesso")
           {
-            $('#sucessoOrcamento').html("<strong>Sucesso: </strong> Orçamento salvo com sucesso");
+            $("#cabecalhoOrcamento").html("<center>Orçamento - "+retorno.dados+"</center>")
+            $('#sucessoOrcamento').html("<strong>Sucesso: </strong> Orçamento "+retorno.dados+" salvo com sucesso");
             $('#sucessoOrcamento').fadeIn();
           }
           else {
@@ -1787,22 +1787,29 @@ $(document).ready(function(){
       });		        
   }
   
-  function carregarOrcamento()
+  function selecionarOrcamento(){
+
+    $('#erroOrcamento').hide();
+    $('#sucessoOrcamento').hide();
+
+    if (isNaN($('#orcamentoId').val()) || $('#orcamentoId').val() == '')
+    {
+      $('#erroOrcamento').html("<strong>Erro: </strong> Formato Inválido");
+      $('#erroOrcamento').fadeIn();
+      return;
+    }
+
+    carregarOrcamento($('#orcamentoId').val());
+  }
+
+  function carregarOrcamento(orcamentoId)
 	{        
-      var nomeMetodo 		= "carregarOrcamento";
-      var nomeController 	= "Venda";
 
-      $('#erroOrcamento').hide();
-      $('#sucessoOrcamento').hide();
+    var nomeMetodo 		= "carregarOrcamento";
+    var nomeController 	= "Venda";
 
-      if (isNaN($('#orcamentoId').val()) || $('#orcamentoId').val() == '')
-      {
-        $('#erroOrcamento').html("<strong>Erro: </strong> Formato Inválido");
-        $('#erroOrcamento').fadeIn();
-        return;
-      }
-      //Monta os dados de entrada do metodo
-      var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&orcamentoId=' + $('#orcamentoId').val();
+    //Monta os dados de entrada do metodo
+    var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&orcamentoId=' + orcamentoId;
 
       $.ajax({
         dataType: "json",
@@ -1826,7 +1833,54 @@ $(document).ready(function(){
           }
         }
       });		        
-	}
+  }
+
+  function buscarOrcamento(){
+    var nomeMetodo 		= "buscarOrcamento";
+    var nomeController 	= "Venda";
+
+    $('#erroListaOrcamento').hide();
+
+    //Monta os dados de entrada do metodo
+    var dados = 'nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&orcamentoCliente=' + $('#orcamentoCliente').val() + '&orcamentoData=' + $('#orcamentoData').val();
+
+    $.ajax({
+      dataType: "json",
+      type: "POST",
+      url: "transferencia/transferencia.php",
+      data: dados,
+      success: function( retorno ){
+
+        $('#tableOrcamentos tbody').empty();
+
+        //Se o resultado for ok, verifica os demais itens
+        if(retorno.resultado == "sucesso")
+        {
+
+          for (var i = 0; i < retorno.dados.length; i++) {
+
+              var newRow = $("<tr>");
+              var cols = "";
+              
+              cols += '<td><center>'+retorno.dados[i].id_orcamento+'</center></td>';
+              cols += '<td>'+retorno.dados[i].cliente+'</td>';
+              cols += '<td><center>R$ '+retorno.dados[i].data+'</center></td>';
+              cols += '<td><center>'+retorno.dados[i].valor+'</center></td>';
+              cols += "<td><center><button onclick='carregarOrcamento("+retorno.dados[i].id_orcamento+");' class='btn btn-default btn-xs' data-dismiss='modal'><i class='fa fa-file-text'></i></button></center></td>";
+             
+              newRow.append(cols);
+              $("#tableOrcamentos").append(newRow); 
+          } 
+
+        }
+        else {
+          // Apresenta a mensagem de erro
+          $('#erroListaOrcamento').html("<strong>Erro: </strong>"+retorno.dados);
+          $('#erroListaOrcamento').fadeIn();
+        }
+      }
+    });		
+  }
 
   function inserirValorCaixa($mov, $desc){
 

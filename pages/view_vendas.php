@@ -189,7 +189,7 @@
                                           <div class="col-lg-12">
                                              <div class="form-group " >
                                                 <label>Nome Produto:</label>
-                                                <select id="nomeProduto" style="width: 100%"  name="nomeProduto" class="form-control">
+                                                <select id="nomeProduto" style="width: 100%" name="nomeProduto" class="form-control">
                                                    <option value='' ></option>
                                                 </select>
                                              </div>
@@ -381,10 +381,10 @@
                                              <div class="input-group">
                                                 <input type="text" class="form-control" name="orcamentoId" id="orcamentoId" placeholder="Orçamento" required>
                                                 <span class="input-group-btn">
-                                                   <button class="btn btn-default" onclick="buscarOrcamento()" type="button"><i class="fa fa-search"></i></button>
+                                                   <button class="btn btn-default" data-toggle='modal' data-target='#orcamentoModal' type="button"><i class="fa fa-search"></i></button>
                                                 </span>
                                                 <span class="input-group-btn">
-                                                   <button class="btn btn-default" onclick="carregarOrcamento()" type="button"><i class="fa fa-mouse-pointer"></i></button>
+                                                   <button class="btn btn-default" onclick="selecionarOrcamento()" type="button"><i class="fa fa-mouse-pointer"></i></button>
                                                 </span>
                                              </div>
                                           </div>
@@ -468,35 +468,6 @@
                                     </div>
                                  </div>
                               </div>
-                              <!--<div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                       <center>Desconto Cliente</center>
-                                    </div>
-                                    <div class="panel-body">
-                                       <div class="row">
-                                          <form>
-                                             <div class="col-lg-12">
-                                                <div class="col-lg-12">
-                                                   <div class="form-group input-group">
-                                                      <span class="input-group-addon">$</span>
-                                                      <input type="text" class="form-control" id="valorCreditoCliente" onKeyUp="maskIt(this,event,'###.###.###,##',true)">
-                                                   </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                   <button type="button" class="btn btn-default btn-block" id="confirmarAtualizacaoCredito">Atualizar Desconto</button>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                   <div class="alert alert-danger" id="erroAlteracaoCreditoCliente" style="display: none;"></div>
-                                                   <center>
-                                                      <div class="alert alert-success" id="sucessoAlteracaoCreditoCliente" style="display: none;" ></div>
-                                                   </center>
-                                                </div>
-                                                <input type="hidden" name="perfilCliente" id="perfilCliente">
-                                             </div>
-                                          </form>
-                                       </div>
-                                    </div>
-                                 </div>-->
                            </div>
                            <div class="col-lg-8">
                               <div class="panel panel-primary">
@@ -781,6 +752,59 @@
                <!-- /.panel-body -->
             </div>
          </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade" id="orcamentoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+      
+         <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+         <h4 class="modal-title" id="myModalLabel">Buscar Orçamentos</h4>
+         </div>
+
+
+
+         <div class="modal-body">
+            <div class="row">
+
+               <div class="col-md-5 form-group"> 
+                  <label>Cliente:</label>
+                  <br><input type="text" class="form-control" id="orcamentoCliente" />
+               </div>
+               <div class="col-md-4 form-group">
+                  <label>Data:</label>
+                  <br><input type="date" class="form-control" id="orcamentoData" />         
+               </div>
+               <div class="col-md-3 form-group">
+                  <br><input type="button" value="Pesquisar" onClick="buscarOrcamento()" class="btn btn-button btn-block btn-primary" />               
+               </div>
+
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="tableOrcamentos">
+               <thead>  
+               <tr>
+                  <th><center>Número</center></th>
+                  <th><center>Cliente</center></th>
+                  <th><center>Data</center></th>
+                  <th><center>Valor</center></th>
+                  <th><center>Selecionar</center></th>
+               </tr>
+               <tbody>
+                  <tr>
+                  </tr>
+               </tbody>
+            </table>  
+         </div>
+         
+         <div class="modal-footer">
+            <div class="col-lg-12">
+               <div class="alert alert-danger" id="erroListaOrcamento" style="display: none;" ></div>
+            </div>
+         </div>
+
       </div>
    </div>
 </div>
