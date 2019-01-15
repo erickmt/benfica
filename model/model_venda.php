@@ -66,7 +66,7 @@ class Model_Venda
                 'indicador_erro' => 2,
                 'dados' => null
             );
-        
+            
         $id_venda     = $pedidoTiny['numero_ordem_compra'];
         $nome_cliente = $pedidoTiny['cliente']['nome'];
         
@@ -77,7 +77,7 @@ class Model_Venda
             $retorno = "Solicitação processada, mas possui erros de validação";
         $situcao = $resposta['retorno']['status'];
         
-        $sql = "INSERT INTO `benfica`.`pedido`
+        $sql = "INSERT INTO `pedido`
                     (`id_tiny`,
                     `id_venda`,
                     `id_cliente`,
@@ -97,18 +97,18 @@ class Model_Venda
                     '" . $retorno . "',
                     now(),
                     " . $naoEmitir . ");";
-        
+                
         $resultado = $this->conexao->query($sql);
         //Se retornar algum erro
         if (!$resultado)
             return array(
                 'indicador_erro' => 1,
-                'dados' => null
+                'dados' => "Erro ao gravar pedido no banco de dados"
             );
         
         return array(
             'retorno' => 'sucesso',
-            'dados' => null
+            'dados' => "Pedido gravado com sucesso"
         );
     }
     
@@ -119,6 +119,7 @@ class Model_Venda
         $sql = "SELECT 
                       IFNULL(id_tiny, 0) id_tiny,
                       v.id_venda id_venda,
+                      v.id_loja id_loja,
                       c.nome nome_cliente,
                       v.valor_total_pago total_venda,
                       LEFT(DATE_FORMAT(v.dta_venda, '%d-%m-%Y'),
@@ -190,6 +191,7 @@ class Model_Venda
             $dados     = array(
                 'id_tiny' => $linha['id_tiny'],
                 'id_venda' => $linha['id_venda'],
+                'id_loja' => $linha['id_loja'],
                 'nome_cliente' => strtoupper($linha['nome_cliente']),
                 'total_venda' => $linha['total_venda'],
                 'situacao' => $linha['situacao'],
@@ -756,9 +758,9 @@ class Model_Venda
 
         $linha = mysqli_fetch_array($resultado);
 
-        $retorno['token']       = $linha['token_tiny'];
+        $retorno = $linha['token_tiny'];
 
-        return $retorno['token'];
+        return $retorno;
 
     }
     

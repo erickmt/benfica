@@ -1329,9 +1329,12 @@ class Venda {
 
 		$resposta = $this->enviarREST($url, $data);
 		$resposta = json_decode($resposta, true);
-		
+
 		if($resposta['retorno']['status_processamento'] != 1)
-			$model_venda->gravarPedido($pedidoTiny, $idCliente, $valorTotal, $resposta, $naoEmitir);
+		{	
+			$gravou = $model_venda->gravarPedido($pedidoTiny, $idCliente, $valorTotal, $resposta, $naoEmitir);
+			var_dump($gravou);
+		}
 
 		return $resposta;
 	}
@@ -1390,7 +1393,7 @@ class Venda {
 
 		$model_venda = new Model_Venda($this->conexao);
 		$token = $model_venda->buscarTokenTiny($loja);
-
+	
 		$url = 'https://api.tiny.com.br/api2/nota.fiscal.emitir.php';
 		$data = "token=$token&id=$id&formato=json";
 		$resposta = $this->enviarREST($url, $data);
@@ -1449,10 +1452,7 @@ class Venda {
 			throw new Exception("Problema com $url, $php_errormsg");
 		}
 		$response = @stream_get_contents($fp);
-		// if ($response === false) {
-		// 	throw new Exception("Problema obtendo retorno de $url, $php_errormsg");
-		// }
-		//var_dump($response);
+ 
 		return $response;
 	}
 
@@ -1478,7 +1478,7 @@ class Venda {
 				return array('resultado' => 'erro', 'descricao' => 'CPF / CNPJ Inválido.');
 
 			$resposta = $this->criarPedidoTiny($dadosVenda);
-
+	
 			if($resposta['retorno']['status_processamento'] == 1)
 				return array('resultado' => 'erro', 'descricao' => $resposta['retorno']['erros'][0]['erro'].'<br>Nota não foi criado no tiny.');
 			
@@ -1505,7 +1505,8 @@ class Venda {
 		$model_venda = new Model_Venda($this->conexao);
 		
 		$venda = $model_venda->buscarNota($idVenda);
-		
+		$lojaVenda = $venda['dados']['id_loja'];
+
 		if($venda['indicador_erro'] == 0)
 			return array('resultado' => 'erro', 'descricao' => 'Erro inesperado. Tente novamente. <br> Se persistir o erro, entre em contato com o administrador do sistema.');
 		
@@ -1519,7 +1520,7 @@ class Venda {
 
 		if($venda['indicador_erro'] == 2 && $venda['dados']['id_nota'] == null)
 		{
-			$resposta = $this->obterPedido($idPedido,  $venda['dados']['id_loja']);
+			$resposta = $this->obterPedido($idPedido,  $lojaVenda);
 		
 			if($resposta['retorno']['status_processamento'] == 1)
 				return array('resultado' => 'erro', 'descricao' => $resposta['retorno']['erros'][0]['erro'].'<br>Nota não foi encontrada no tiny.');
@@ -1551,7 +1552,7 @@ class Venda {
 
 			if($venda['dados']['naoEmitir'] == 0)
 			{
-				$resposta = $this->emitirNotaFiscal($idNotaFiscal, $venda['dados']['id_loja']);
+				$resposta = $this->emitirNotaFiscal($idNotaFiscal, $lojaVenda);
 
 				$emitida = false;
 				if($resposta['retorno']['status_processamento'] != 3)
@@ -1563,7 +1564,7 @@ class Venda {
 				}
 			}
 
-			$resposta = $this->obterPedido($idPedido,  $venda['dados']['id_loja']);
+			$resposta = $this->obterPedido($idPedido,  $lojaVenda);
 			$emitida = false;
 
 			if($resposta['retorno']['status_processamento'] == 3){
@@ -1572,7 +1573,7 @@ class Venda {
 					$emitida = true;
 			}
 
-			$resposta = $this->visualizarNota($idNotaFiscal, $venda['dados']['id_loja']);
+			$resposta = $this->visualizarNota($idNotaFiscal, $lojaVenda);
 			if($resposta['retorno']['status_processamento'] != 3){
 				$link = "null";
 				$descricao = $retornoNota.'Nota: '.$numero.' <br> Tente novamente';

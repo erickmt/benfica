@@ -86,15 +86,15 @@ $(document).ready(function() {
 				"label": "Quantidade em estoque:",
 				"name": "produto.quantidade_estoque"
 			},
-			// {
-	        //     label:     "Inativo:",
-	        //     name:      "produto.situacao",
-	        //  	type:      "checkbox",
-            //     separator: "|",
-            //     options:   [
-            //         { label: '', value: 1 }
-            //     ]
-            // }
+			{
+	            label:     "Inativo:",
+	            name:      "produto.situacao",
+	         	type:      "checkbox",
+                separator: "|",
+                options:   [
+                    { label: '', value: 1 }
+                ]
+            }
 		],
         i18n: {
             create: {

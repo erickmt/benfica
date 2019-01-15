@@ -70,7 +70,7 @@ $(document).ready(function() {
 	$('ul').on('click', 'a', function() {
 
       table
-        .columns(2)
+        .columns(3)
         .search($(this).text())
         .draw();
     });
@@ -78,7 +78,7 @@ $(document).ready(function() {
     $('ul').on('click', 'a.todos', function() {
       table
         .search('')
-        .columns(2)
+        .columns(3)
         .search('')
         .draw();
     });

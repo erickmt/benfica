@@ -164,7 +164,7 @@ $(document).ready(function() {
 
 	$('ul').on('click', 'a', function() {
       table
-        .columns(4)
+        .columns(5)
         .search($(this).text())
         .draw();
     });
@@ -172,7 +172,7 @@ $(document).ready(function() {
  	$('ul').on('click', 'a.todos', function() {
       table
         .search('')
-        .columns(4)
+        .columns(5)
         .search('')
         .draw();
     });

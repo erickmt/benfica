@@ -136,7 +136,7 @@ Editor::inst( $db, 'produto', 'id_produto' )
 		->validator( 'Validate::notEmpty', array("message" => "Campo de preenchimento obrigatório." )),
 		
         Field::inst( 'produto.codigo_barra' )
-		->validator( 'Validate::unique', array("message" => "Código anteriormente cadastrado." )),		
+		// ->validator( 'Validate::unique', array("message" => "Código anteriormente cadastrado." ))	
 		->validator( 'Validate::numeric', array("message" => "Permitido informar somente números." ))	
         ->validator( 'Validate::maxLen', array(
                                     'max' => 10,
