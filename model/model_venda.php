@@ -61,12 +61,14 @@ class Model_Venda
     {
         if (isset($resposta["retorno"]['registros']['registro']['numero']))
             $id_tiny = $resposta["retorno"]['registros']['registro']['numero'];
+        else if(isset($resposta['retorno']['notas_fiscais'][0]['nota_fiscal']['numero']))
+            $id_tiny = $resposta['retorno']['notas_fiscais'][0]['nota_fiscal']['numero'];
         else
             return array(
                 'indicador_erro' => 2,
                 'dados' => null
             );
-            
+        
         $id_venda     = $pedidoTiny['numero_ordem_compra'];
         $nome_cliente = $pedidoTiny['cliente']['nome'];
         
@@ -97,7 +99,7 @@ class Model_Venda
                     '" . $retorno . "',
                     now(),
                     " . $naoEmitir . ");";
-                
+
         $resultado = $this->conexao->query($sql);
         //Se retornar algum erro
         if (!$resultado)

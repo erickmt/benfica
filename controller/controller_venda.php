@@ -1237,6 +1237,8 @@ class Venda {
 		$pedidoTiny['cliente']['numero']    = $dadosPedido['dados']['numero'];
 		$pedidoTiny['cliente']['cidade']    = $dadosPedido['dados']['cidade'];
 		$pedidoTiny['cliente']['uf']    = $dadosPedido['dados']['estado'];
+		$pedidoTiny['numero_pedido_ecommerce']    = $dadosPedido['dados']['id_venda'];
+		
 		$idCliente 	= $dadosPedido['dados']['idCliente'];
 
 		$pedidoTiny['itens'] = array();
@@ -1331,10 +1333,7 @@ class Venda {
 		$resposta = json_decode($resposta, true);
 
 		if($resposta['retorno']['status_processamento'] != 1)
-		{	
-			$gravou = $model_venda->gravarPedido($pedidoTiny, $idCliente, $valorTotal, $resposta, $naoEmitir);
-			var_dump($gravou);
-		}
+			$model_venda->gravarPedido($pedidoTiny, $idCliente, $valorTotal, $resposta, $naoEmitir);
 
 		return $resposta;
 	}
@@ -1354,12 +1353,20 @@ class Venda {
 		$model_venda = new Model_Venda($this->conexao);
 		$token = $model_venda->buscarTokenTiny($loja);
 		
-		// if($loja == 1 || $loja == 3)
-		// 	$token = '9394b29b27dc138a0e815eeebf1a2ed1f717772d';
-		// else
-		// 	$token = 'a73f43b4ab33cdb895a79f4991e4b3ace9f89162';
-		
 		$data = "token=$token&numero=$idPedido&formato=json";
+		$resposta = $this->enviarREST($url, $data);
+		
+		$resposta = json_decode($resposta, true);
+		return $resposta;
+	}
+
+	function obterPedidoSistema($idVenda, $loja){
+		$url = 'https://api.tiny.com.br/api2/notas.fiscais.pesquisa.php';
+
+		$model_venda = new Model_Venda($this->conexao);
+		$token = $model_venda->buscarTokenTiny($loja);
+		
+		$data = "token=$token&numeroEcommerce=$idVenda&formato=json";
 		$resposta = $this->enviarREST($url, $data);
 		
 		$resposta = json_decode($resposta, true);
@@ -1461,7 +1468,7 @@ class Venda {
 		$model_venda = new Model_Venda($this->conexao);
 		
 		$venda = $model_venda->buscarNota($idVenda);
-		
+
 		if($venda['indicador_erro'] == 0)
 			return array('resultado' => 'erro', 'descricao' => 'Erro inesperado. Tente novamente. <br> Se persistir o erro, entre em contato com o administrador do sistema.');
 
@@ -1478,7 +1485,7 @@ class Venda {
 				return array('resultado' => 'erro', 'descricao' => 'CPF / CNPJ Inválido.');
 
 			$resposta = $this->criarPedidoTiny($dadosVenda);
-	
+
 			if($resposta['retorno']['status_processamento'] == 1)
 				return array('resultado' => 'erro', 'descricao' => $resposta['retorno']['erros'][0]['erro'].'<br>Nota não foi criado no tiny.');
 			
@@ -1489,7 +1496,20 @@ class Venda {
 				else if(isset($resposta['retorno']['registros']['registro']['erros'][0]['erro']))
 					return array('resultado' => 'erro', 'descricao' => $resposta['retorno']['registros']['registro']['erros'][0]['erro'].'<br>Realize os ajustes e tente novamente');
 				else
-					return array('resultado' => 'erro', 'descricao' => 'Erro não identificado.');
+				{
+					$resposta = $this->obterPedidoSistema($idVenda, $dadosVenda['dados']['id_loja']);
+					if($resposta['retorno']['status_processamento'] != 3)
+						return array('resultado' => 'erro', 'descricao' => 'Erro não identificado.');				
+		
+					$naoEmitir = 0;
+					$pedidoTiny = array();
+					$pedidoTiny['numero_ordem_compra'] = $dadosVenda['dados']['id_venda'];
+					$pedidoTiny['cliente']['nome'] = $dadosVenda['dados']['nome'];
+
+					$retorno = $model_venda->gravarPedido($pedidoTiny, $dadosVenda['dados']['idCliente'], $dadosVenda['dados']['totalVenda'], $resposta, $naoEmitir);
+					
+					return array('resultado' => 'Sucesso', 'descricao' => 'Nota '.$resposta['retorno']['notas_fiscais'][0]['nota_fiscal']['numero'].' já criada anteriormente.');
+				}
 			}
 
 			$idPedido = $resposta['retorno']['registros']['registro']['numero'];
@@ -1549,7 +1569,6 @@ class Venda {
 			$numero = $venda['dados']['id_pedido'];
 		}
 		
-
 			if($venda['dados']['naoEmitir'] == 0)
 			{
 				$resposta = $this->emitirNotaFiscal($idNotaFiscal, $lojaVenda);

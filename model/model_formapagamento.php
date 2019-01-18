@@ -20,14 +20,15 @@ class Model_FormaPagamento {
                session_start();
              }
      
-             $loja = $_SESSION['usuario']['lojaVenda'];
+             $loja = $_SESSION['usuario']['id_loja'];
      
                $sql = " SELECT 
                          id_forma_pagamento, descricao, porcentagem_taxa
                         FROM
-                         forma_pagamento
-                        WHERE 
-                         (id_loja = 0 or id_loja = ".$loja.");";
+                         forma_pagamento ";
+
+          //    if( $loja != 0 )
+          //      $sql = $sql." WHERE id_loja = 0 or id_loja = ".$loja." ;";
                          
                //Executa a query
                $resultado = $this->conexao->query($sql);
