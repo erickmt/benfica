@@ -1296,10 +1296,6 @@ $(document).ready(function(){
         return false;
       });
 
-
-
-
-
       //Quando o formulário de incluir itens na venda for submetido
       $('#inclusaoProdutosVenda').submit(function(){
 
@@ -1366,6 +1362,7 @@ $(document).ready(function(){
 
         //Pega os dados do formulário
         var dados = $('#inclusaoProdutosVenda').serialize() + '&nomeMetodo=' + nomeMetodo + '&nomeController=' + nomeController + '&nomeRealProduto=' + $('#nomeProduto option:selected').text() + '&pesoTotal='+ pesoTotal;
+        $("#botaoIncluirItemVenda").prop("disabled", true);
 
         $.ajax({
           dataType: "json",
@@ -1375,8 +1372,9 @@ $(document).ready(function(){
           beforeSend: function() {
             $('#processoInclusaoVenda').show();
           },          
-         complete: function(){
+          complete: function(){
             $('#processoInclusaoVenda').hide();
+            $("#botaoIncluirItemVenda").prop("disabled", false);
           },
           success: function( retorno ){
 
@@ -2216,9 +2214,10 @@ $(document).ready(function(){
     for (i = 0; i < dados[2].length; i++) {
         $('#nomeProduto').append('<option value = '+ dados[2][i].id_produto +'>' + dados[2][i].nome_produto + '</option>');
     }        
-
+    
     $('#quantidadeProduto').val(1);
     $('#valorUnitarioProduto').val('');
+    $("#botaoIncluirItemVenda").prop("disabled", false);
 
     	//Apresenta a estrutura do PASSO 02
 		$('#MenuOpcaoPasso01').removeClass('active');

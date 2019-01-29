@@ -636,7 +636,7 @@
                                     </tr>
                                     <tr bgcolor="#F5F5F5">
                                        <td colspan="4">
-                                          <p style="font-size: 11px; text-align:center; margin: 8px;">SEGUNDA A SEXTA DE 09:00HS ÀS 18:00HS<br>SÁBADO DE 09:00HS ÀS 17:00HS</p>
+                                          <p style="font-size: 11px; text-align:center; margin: 8px;">SEGUNDA A SEXTA DE 09:30HS ÀS 18:30HS<br>SÁBADO DE 09:00HS ÀS 17:00HS</p>
                                        </td>
                                     </tr>
                                     <tr>
