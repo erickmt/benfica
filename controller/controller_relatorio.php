@@ -48,7 +48,7 @@ class Relatorio {
 		if ($vendas["indicador_erro"] == 1)
 			return array("resultado" => "erro", "descricao" => "Ocorreu um erro inesperado ao buscar as vendas.");
 
-		if ($vendas["indicador_erro"] == 0 and $vendas["dados"] == null)
+		if ($vendas["indicador_erro"] == 0 || $vendas["dados"] == null)
 			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda no mês informado para o vendedor em questão.");		
 
 		$vendasRetornadas = array();
@@ -95,7 +95,7 @@ class Relatorio {
 		if ($vendas["indicador_erro"] == 1)
 			return array("resultado" => "erro", "descricao" => "Ocorreu um erro inesperado ao buscar as vendas.");
 
-		if ($vendas["indicador_erro"] == 0 and $vendas["dados"] == null)
+		if ($vendas["indicador_erro"] == 0 || $vendas["dados"] == null)
 			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda no mês informado para o vendedor em questão.");		
 
 		$vendasRetornadas = array();
@@ -262,9 +262,9 @@ class Relatorio {
 		if ($retorno["indicador_erro"] == 1)
 			return array("resultado" => "erro", "descricao" => "Ocorreu um erro inesperado ao buscar as vendas.");
 
-		if ($retorno["indicador_erro"] == 0 and $retorno["dados"] == null)
-			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda no mês informado para o vendedor em questão.");		
-
+		if ($retorno["indicador_erro"] == 0 && $retorno["dados"] == null)
+			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda no mês informado para o vendedor em questão.");	
+		
 		$retorno['data_inicial']   = date('d/m/Y', strtotime($dataInicial.' 02:02:02'));
 		$retorno['data_final']     = date('d/m/Y', strtotime($dataFinal.' 02:02:02'));
 		$retorno['resultado'] = "sucesso";
@@ -287,7 +287,7 @@ class Relatorio {
 		if ($retorno["indicador_erro"] == 1)
 			return array("resultado" => "erro", "descricao" => "Ocorreu um erro inesperado ao buscar as vendas.");
 
-		if ($retorno["indicador_erro"] == 0 and $retorno["dados"] == null)
+		if ($retorno["indicador_erro"] == 0 && $retorno["dados"] == null)
 			return array("resultado" => "erro", "descricao" => "Não foi identificada nenhuma venda no mês informado para o vendedor em questão.");		
 
 		$retorno['resultado'] = "sucesso";
@@ -408,7 +408,6 @@ class Relatorio {
 
 
     }
-
 
 }
 

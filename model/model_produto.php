@@ -184,7 +184,7 @@ class Model_Produto {
                     (SELECT 
                             SUM(quantidade)
                         FROM
-                            benfica.itens_de_venda
+                            itens_de_venda
                         WHERE
                             id_venda IN (SELECT 
                                     id_venda
