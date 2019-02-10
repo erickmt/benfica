@@ -988,7 +988,7 @@ class Model_Venda
         }
         
         $sql = $sql . " ORDER BY ven.id_venda asc; ";
-        
+
         //Executa a query
         $resultado = $this->conexao->query($sql);
         
@@ -1052,7 +1052,7 @@ class Model_Venda
         }
         
         return array(
-            'indicador_erro' => 0,
+            'indicador_erro' => 2,
             'dados' => $retorno
         );
     }
@@ -1166,6 +1166,7 @@ class Model_Venda
         } else {
             $sql = $sql . " GROUP BY 1, 2;";
         }
+              
         //Executa a query
         $resultado = $this->conexao->query($sql);
         
@@ -1182,7 +1183,7 @@ class Model_Venda
                 'indicador_erro' => 0,
                 'dados' => null
             );
-        
+
         //Encontrou uma ou mais vendas
         $retorno = array();
         while ($linha = mysqli_fetch_array($resultado)) {
@@ -1205,7 +1206,7 @@ class Model_Venda
         }
         
         return array(
-            'indicador_erro' => 0,
+            'indicador_erro' => 2,
             'dados' => $retorno
         );
     }
