@@ -139,7 +139,7 @@ Editor::inst( $db, 'produto', 'id_produto' )
 		// ->validator( 'Validate::unique', array("message" => "Código anteriormente cadastrado." ))	
 		->validator( 'Validate::numeric', array("message" => "Permitido informar somente números." ))	
         ->validator( 'Validate::maxLen', array(
-                                    'max' => 10,
+                                    'max' => 20,
                                     'message' => 'Permitido informar no máximo 10 caracteres.'
         	)),
 
